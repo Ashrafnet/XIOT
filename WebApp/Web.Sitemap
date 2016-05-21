@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" xmlns:app="urn:schemas-codeontime-com:data-aquarium-application">
+  <siteMapNode url="~/Default.aspx" title="^SiteHome^Home^SiteHome^" description="">
+    <siteMapNode title="^HomePath^Home^HomePath^" description="^HomeDesc^Application home page^HomeDesc^" url="~/Pages/Home.aspx" />
+    <siteMapNode title="DIM People" description="View DIM People" url="~/Pages/DIM_People.aspx">
+      <siteMapNode title="CB Test Population" description="View CB Test Population" url="~/Pages/CB_TestPopulation.aspx" />
+      <siteMapNode title="Groups People" description="View Groups People" url="~/Pages/Groups_People.aspx" />
+      <siteMapNode title="People Objects" description="View People Objects" url="~/Pages/People_Objects.aspx" />
+    </siteMapNode>
+    <siteMapNode title="CB Test Expressions" description="View CB Test Expressions" url="~/Pages/CB_TestExpressions.aspx">
+      <siteMapNode title="CB Pass Fail Criteria" description="View CB Pass Fail Criteria" url="~/Pages/CB_PassFailCriteria.aspx" />
+    </siteMapNode>
+    <siteMapNode title="CB Tests" description="View CB Tests" url="~/Pages/CB_Tests.aspx" />
+    <siteMapNode title="DIM Events" description="View DIM Events" url="~/Pages/DIM_Events.aspx">
+      <siteMapNode title="CB Data Element" description="View CB Data Element" url="~/Pages/CB_DataElement.aspx" />
+    </siteMapNode>
+    <siteMapNode title="LU Groups" description="View LU Groups" url="~/Pages/LU_Groups.aspx">
+      <siteMapNode title="CB Expression Operator" description="View CB Expression Operator" url="~/Pages/CB_ExpressionOperator.aspx" />
+      <siteMapNode title="CB Query Template" description="View CB Query Template" url="~/Pages/CB_QueryTemplate.aspx" />
+      <siteMapNode title="CB Test Criteria" description="View CB Test Criteria" url="~/Pages/CB_TestCriteria.aspx" />
+      <siteMapNode title="Dim Event Attribute" description="View Dim Event Attribute" url="~/Pages/Dim_EventAttribute.aspx" />
+      <siteMapNode title="LU Event Types" description="View LU Event Types" url="~/Pages/LU_EventTypes.aspx" />
+      <siteMapNode title="LU Log Source" description="View LU Log Source" url="~/Pages/LU_LogSource.aspx" />
+      <siteMapNode title="LU Object Type" description="View LU Object Type" url="~/Pages/LU_ObjectType.aspx" />
+      <siteMapNode title="LU Time Source" description="View LU Time Source" url="~/Pages/LU_TimeSource.aspx" />
+    </siteMapNode>
+    <siteMapNode title="DIM Objects" description="View DIM Objects" url="~/Pages/DIM_Objects.aspx" />
+  </siteMapNode>
+</siteMap>

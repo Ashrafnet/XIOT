@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="CB_TestExpressions" conflictDetection="overwriteChanges" label="CB Test Expressions" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"CB_TestExpressions"."TestID" "TestID"
+	,"Test"."TestName" "TestTestName"
+	,"CB_TestExpressions"."TestExpressionID" "TestExpressionID"
+	,"CB_TestExpressions"."ParentTestExpressionID" "ParentTestExpressionID"
+	,"ParentTestExpression"."JoinCriteria" "ParentTestExpressionJoinCriteria"
+	,"ParentTestExpressionLeftDataElement"."DataElementName" "ParentTestExpressionLeftDataElementDataElementName"
+	,"ParentTestExpressionLeftDataElementEvent"."Name" "ParentTestExpressionLeftDataElementEventName"
+	,"ParentTestExpressionRightDataElement"."DataElementName" "ParentTestExpressionRightDataElementDataElementName"
+	,"ParentTestExpressionRightDataElementEvent"."Name" "ParentTestExpressionRightDataElementEventName"
+	,"ParentTestExpressionOperator"."Code" "ParentTestExpressionOperatorCode"
+	,"ParentTestExpressionTemplate"."TemplateName" "ParentTestExpressionTemplateTemplateName"
+	,"ParentTestExpressionTest"."TestName" "ParentTestExpressionTestTestName"
+	,"ParentTestExpressionAtrributeEvent"."AttributeID" "ParentTestExpressionAtrributeEventAttributeID"
+	,"ParentTestExpressionLeftEvent"."Name" "ParentTestExpressionLeftEventName"
+	,"ParentTestExpressionLeftEventEventType"."EventType" "ParentTestExpressionLeftEventEventTypeEventType"
+	,"ParentTestExpressionLeftEventLogSource"."Code" "ParentTestExpressionLeftEventLogSourceCode"
+	,"ParentTestExpressionLeftEventTimeSource"."Code" "ParentTestExpressionLeftEventTimeSourceCode"
+	,"ParentTestExpressionRightEvent"."Name" "ParentTestExpressionRightEventName"
+	,"ParentTestExpressionRightEventEventType"."EventType" "ParentTestExpressionRightEventEventTypeEventType"
+	,"ParentTestExpressionRightEventLogSource"."Code" "ParentTestExpressionRightEventLogSourceCode"
+	,"ParentTestExpressionRightEventTimeSource"."Code" "ParentTestExpressionRightEventTimeSourceCode"
+	,"CB_TestExpressions"."LeftEventID" "LeftEventID"
+	,"LeftEvent"."Name" "LeftEventName"
+	,"LeftEventEventType"."EventType" "LeftEventEventTypeEventType"
+	,"LeftEventLogSource"."Code" "LeftEventLogSourceCode"
+	,"LeftEventTimeSource"."Code" "LeftEventTimeSourceCode"
+	,"CB_TestExpressions"."LeftDataElementID" "LeftDataElementID"
+	,"LeftDataElement"."DataElementName" "LeftDataElementDataElementName"
+	,"LeftDataElementEvent"."Name" "LeftDataElementEventName"
+	,"LeftDataElementEventEventType"."EventType" "LeftDataElementEventEventTypeEventType"
+	,"LeftDataElementEventLogSource"."Code" "LeftDataElementEventLogSourceCode"
+	,"LeftDataElementEventTimeSource"."Code" "LeftDataElementEventTimeSourceCode"
+	,"CB_TestExpressions"."OperatorID" "OperatorID"
+	,"Operator"."Code" "OperatorCode"
+	,"CB_TestExpressions"."RightEventID" "RightEventID"
+	,"RightEvent"."Name" "RightEventName"
+	,"RightEventEventType"."EventType" "RightEventEventTypeEventType"
+	,"RightEventLogSource"."Code" "RightEventLogSourceCode"
+	,"RightEventTimeSource"."Code" "RightEventTimeSourceCode"
+	,"CB_TestExpressions"."RightDataElementID" "RightDataElementID"
+	,"RightDataElement"."DataElementName" "RightDataElementDataElementName"
+	,"RightDataElementEvent"."Name" "RightDataElementEventName"
+	,"RightDataElementEventEventType"."EventType" "RightDataElementEventEventTypeEventType"
+	,"RightDataElementEventLogSource"."Code" "RightDataElementEventLogSourceCode"
+	,"RightDataElementEventTimeSource"."Code" "RightDataElementEventTimeSourceCode"
+	,"CB_TestExpressions"."StartDateRange" "StartDateRange"
+	,"CB_TestExpressions"."EndDateRange" "EndDateRange"
+	,"CB_TestExpressions"."OrderSeq" "OrderSeq"
+	,"CB_TestExpressions"."AtrributeEventID" "AtrributeEventID"
+	,"AtrributeEvent"."AttributeID" "AtrributeEventAttributeID"
+	,"CB_TestExpressions"."Weight" "Weight"
+	,"CB_TestExpressions"."Threshold" "Threshold"
+	,"CB_TestExpressions"."TemplateID" "TemplateID"
+	,"Template"."TemplateName" "TemplateTemplateName"
+	,"CB_TestExpressions"."JoinCriteria" "JoinCriteria"
+	,"CB_TestExpressions"."DateCreated" "DateCreated"
+	,"CB_TestExpressions"."DateModified" "DateModified"
+from "dbo"."CB_TestExpressions" "CB_TestExpressions"
+	left join "dbo"."CB_Tests" "Test" on "CB_TestExpressions"."TestID" = "Test"."TestID"
+	left join "dbo"."CB_TestExpressions" "ParentTestExpression" on "CB_TestExpressions"."ParentTestExpressionID" = "ParentTestExpression"."TestExpressionID"
+	left join "dbo"."CB_DataElement" "ParentTestExpressionLeftDataElement" on "ParentTestExpression"."LeftDataElementID" = "ParentTestExpressionLeftDataElement"."DataElementID"
+	left join "dbo"."DIM_Events" "ParentTestExpressionLeftDataElementEvent" on "ParentTestExpressionLeftDataElement"."EventID" = "ParentTestExpressionLeftDataElementEvent"."EventID"
+	left join "dbo"."CB_DataElement" "ParentTestExpressionRightDataElement" on "ParentTestExpression"."RightDataElementID" = "ParentTestExpressionRightDataElement"."DataElementID"
+	left join "dbo"."DIM_Events" "ParentTestExpressionRightDataElementEvent" on "ParentTestExpressionRightDataElement"."EventID" = "ParentTestExpressionRightDataElementEvent"."EventID"
+	left join "dbo"."CB_ExpressionOperator" "ParentTestExpressionOperator" on "ParentTestExpression"."OperatorID" = "ParentTestExpressionOperator"."OperatorID"
+	left join "dbo"."CB_QueryTemplate" "ParentTestExpressionTemplate" on "ParentTestExpression"."TemplateID" = "ParentTestExpressionTemplate"."TemplateID"
+	left join "dbo"."CB_Tests" "ParentTestExpressionTest" on "ParentTestExpression"."TestID" = "ParentTestExpressionTest"."TestID"
+	left join "dbo"."Dim_EventAttribute" "ParentTestExpressionAtrributeEvent" on "ParentTestExpression"."AtrributeEventID" = "ParentTestExpressionAtrributeEvent"."EventID"
+	left join "dbo"."DIM_Events" "ParentTestExpressionLeftEvent" on "ParentTestExpression"."LeftEventID" = "ParentTestExpressionLeftEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "ParentTestExpressionLeftEventEventType" on "ParentTestExpressionLeftEvent"."EventTypeID" = "ParentTestExpressionLeftEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "ParentTestExpressionLeftEventLogSource" on "ParentTestExpressionLeftEvent"."LogSourceID" = "ParentTestExpressionLeftEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "ParentTestExpressionLeftEventTimeSource" on "ParentTestExpressionLeftEvent"."TimeSourceID" = "ParentTestExpressionLeftEventTimeSource"."TimeSourceID"
+	left join "dbo"."DIM_Events" "ParentTestExpressionRightEvent" on "ParentTestExpression"."RightEventID" = "ParentTestExpressionRightEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "ParentTestExpressionRightEventEventType" on "ParentTestExpressionRightEvent"."EventTypeID" = "ParentTestExpressionRightEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "ParentTestExpressionRightEventLogSource" on "ParentTestExpressionRightEvent"."LogSourceID" = "ParentTestExpressionRightEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "ParentTestExpressionRightEventTimeSource" on "ParentTestExpressionRightEvent"."TimeSourceID" = "ParentTestExpressionRightEventTimeSource"."TimeSourceID"
+	left join "dbo"."DIM_Events" "LeftEvent" on "CB_TestExpressions"."LeftEventID" = "LeftEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "LeftEventEventType" on "LeftEvent"."EventTypeID" = "LeftEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "LeftEventLogSource" on "LeftEvent"."LogSourceID" = "LeftEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "LeftEventTimeSource" on "LeftEvent"."TimeSourceID" = "LeftEventTimeSource"."TimeSourceID"
+	left join "dbo"."CB_DataElement" "LeftDataElement" on "CB_TestExpressions"."LeftDataElementID" = "LeftDataElement"."DataElementID"
+	left join "dbo"."DIM_Events" "LeftDataElementEvent" on "LeftDataElement"."EventID" = "LeftDataElementEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "LeftDataElementEventEventType" on "LeftDataElementEvent"."EventTypeID" = "LeftDataElementEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "LeftDataElementEventLogSource" on "LeftDataElementEvent"."LogSourceID" = "LeftDataElementEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "LeftDataElementEventTimeSource" on "LeftDataElementEvent"."TimeSourceID" = "LeftDataElementEventTimeSource"."TimeSourceID"
+	left join "dbo"."CB_ExpressionOperator" "Operator" on "CB_TestExpressions"."OperatorID" = "Operator"."OperatorID"
+	left join "dbo"."DIM_Events" "RightEvent" on "CB_TestExpressions"."RightEventID" = "RightEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "RightEventEventType" on "RightEvent"."EventTypeID" = "RightEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "RightEventLogSource" on "RightEvent"."LogSourceID" = "RightEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "RightEventTimeSource" on "RightEvent"."TimeSourceID" = "RightEventTimeSource"."TimeSourceID"
+	left join "dbo"."CB_DataElement" "RightDataElement" on "CB_TestExpressions"."RightDataElementID" = "RightDataElement"."DataElementID"
+	left join "dbo"."DIM_Events" "RightDataElementEvent" on "RightDataElement"."EventID" = "RightDataElementEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "RightDataElementEventEventType" on "RightDataElementEvent"."EventTypeID" = "RightDataElementEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "RightDataElementEventLogSource" on "RightDataElementEvent"."LogSourceID" = "RightDataElementEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "RightDataElementEventTimeSource" on "RightDataElementEvent"."TimeSourceID" = "RightDataElementEventTimeSource"."TimeSourceID"
+	left join "dbo"."Dim_EventAttribute" "AtrributeEvent" on "CB_TestExpressions"."AtrributeEventID" = "AtrributeEvent"."EventID"
+	left join "dbo"."CB_QueryTemplate" "Template" on "CB_TestExpressions"."TemplateID" = "Template"."TemplateID"
+]]></text>
+    </command>
+    <command id="TestExpressionIDIdentityCommand" type="Text" event="Inserted">
+      <text><![CDATA[select @@identity]]></text>
+      <output>
+        <fieldOutput fieldName="TestExpressionID" />
+      </output>
+    </command>
+  </commands>
+  <fields>
+    <field name="TestID" type="Int32" allowNulls="false" label="Test#" showInSummary="true">
+      <items style="Lookup" dataController="CB_Tests" newDataView="createForm1" />
+    </field>
+    <field name="TestTestName" type="String" readOnly="true" label="Test Name" length="20" />
+    <field name="TestExpressionID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Test Expression#" readOnly="true" />
+    <field name="ParentTestExpressionID" type="Int32" label="Parent Test Expression#" showInSummary="true">
+      <items style="Lookup" dataController="CB_TestExpressions" newDataView="createForm1" />
+    </field>
+    <field name="ParentTestExpressionJoinCriteria" type="String" readOnly="true" label="Parent Test Expression Join Criteria" length="20" />
+    <field name="ParentTestExpressionLeftDataElementDataElementName" type="String" readOnly="true" label="Parent Test Expression Left Data Element Name" length="20" />
+    <field name="ParentTestExpressionLeftDataElementEventName" type="String" readOnly="true" label="Parent Test Expression Left Data Element Event Name" length="20" />
+    <field name="ParentTestExpressionRightDataElementDataElementName" type="String" readOnly="true" label="Parent Test Expression Right Data Element Name" length="20" />
+    <field name="ParentTestExpressionRightDataElementEventName" type="String" readOnly="true" label="Parent Test Expression Right Data Element Event Name" length="20" />
+    <field name="ParentTestExpressionOperatorCode" type="String" readOnly="true" label="Parent Test Expression Operator Code" length="20" />
+    <field name="ParentTestExpressionTemplateTemplateName" type="String" readOnly="true" label="Parent Test Expression Template Name" length="20" />
+    <field name="ParentTestExpressionTestTestName" type="String" readOnly="true" label="Parent Test Expression Test Name" length="20" />
+    <field name="ParentTestExpressionAtrributeEventAttributeID" type="String" readOnly="true" label="Parent Test Expression Atrribute Event Attribute#" length="20" />
+    <field name="ParentTestExpressionLeftEventName" type="String" readOnly="true" label="Parent Test Expression Left Event Name" length="20" />
+    <field name="ParentTestExpressionLeftEventEventTypeEventType" type="String" readOnly="true" label="Parent Test Expression Left Event Type" length="20" />
+    <field name="ParentTestExpressionLeftEventLogSourceCode" type="String" readOnly="true" label="Parent Test Expression Left Event Log Source Code" length="20" />
+    <field name="ParentTestExpressionLeftEventTimeSourceCode" type="String" readOnly="true" label="Parent Test Expression Left Event Time Source Code" length="20" />
+    <field name="ParentTestExpressionRightEventName" type="String" readOnly="true" label="Parent Test Expression Right Event Name" length="20" />
+    <field name="ParentTestExpressionRightEventEventTypeEventType" type="String" readOnly="true" label="Parent Test Expression Right Event Type" length="20" />
+    <field name="ParentTestExpressionRightEventLogSourceCode" type="String" readOnly="true" label="Parent Test Expression Right Event Log Source Code" length="20" />
+    <field name="ParentTestExpressionRightEventTimeSourceCode" type="String" readOnly="true" label="Parent Test Expression Right Event Time Source Code" length="20" />
+    <field name="LeftEventID" type="Int32" allowNulls="false" label="Left Event#" showInSummary="true">
+      <items style="Lookup" dataController="DIM_Events" newDataView="createForm1" />
+    </field>
+    <field name="LeftEventName" type="String" readOnly="true" label="Left Event Name" length="20" />
+    <field name="LeftEventEventTypeEventType" type="String" readOnly="true" label="Left Event Type" length="20" />
+    <field name="LeftEventLogSourceCode" type="String" readOnly="true" label="Left Event Log Source Code" length="20" />
+    <field name="LeftEventTimeSourceCode" type="String" readOnly="true" label="Left Event Time Source Code" length="20" />
+    <field name="LeftDataElementID" type="Int32" label="Left Data Element#" showInSummary="true">
+      <items style="Lookup" dataController="CB_DataElement" newDataView="createForm1" />
+    </field>
+    <field name="LeftDataElementDataElementName" type="String" readOnly="true" label="Left Data Element Name" length="20" />
+    <field name="LeftDataElementEventName" type="String" readOnly="true" label="Left Data Element Event Name" length="20" />
+    <field name="LeftDataElementEventEventTypeEventType" type="String" readOnly="true" label="Left Data Element Event Type" length="20" />
+    <field name="LeftDataElementEventLogSourceCode" type="String" readOnly="true" label="Left Data Element Event Log Source Code" length="20" />
+    <field name="LeftDataElementEventTimeSourceCode" type="String" readOnly="true" label="Left Data Element Event Time Source Code" length="20" />
+    <field name="OperatorID" type="Int32" allowNulls="false" label="Operator#" showInSummary="true">
+      <items style="Lookup" dataController="CB_ExpressionOperator" newDataView="createForm1" />
+    </field>
+    <field name="OperatorCode" type="String" readOnly="true" label="Operator Code" length="20" />
+    <field name="RightEventID" type="Int32" label="Right Event#">
+      <items style="Lookup" dataController="DIM_Events" newDataView="createForm1" />
+    </field>
+    <field name="RightEventName" type="String" readOnly="true" label="Right Event Name" length="20" />
+    <field name="RightEventEventTypeEventType" type="String" readOnly="true" label="Right Event Type" length="20" />
+    <field name="RightEventLogSourceCode" type="String" readOnly="true" label="Right Event Log Source Code" length="20" />
+    <field name="RightEventTimeSourceCode" type="String" readOnly="true" label="Right Event Time Source Code" length="20" />
+    <field name="RightDataElementID" type="Int32" label="Right Data Element#">
+      <items style="Lookup" dataController="CB_DataElement" newDataView="createForm1" />
+    </field>
+    <field name="RightDataElementDataElementName" type="String" readOnly="true" label="Right Data Element Name" length="20" />
+    <field name="RightDataElementEventName" type="String" readOnly="true" label="Right Data Element Event Name" length="20" />
+    <field name="RightDataElementEventEventTypeEventType" type="String" readOnly="true" label="Right Data Element Event Type" length="20" />
+    <field name="RightDataElementEventLogSourceCode" type="String" readOnly="true" label="Right Data Element Event Log Source Code" length="20" />
+    <field name="RightDataElementEventTimeSourceCode" type="String" readOnly="true" label="Right Data Element Event Time Source Code" length="20" />
+    <field name="StartDateRange" type="DateTime" label="Start Date Range" />
+    <field name="EndDateRange" type="DateTime" label="End Date Range" />
+    <field name="OrderSeq" type="Int32" allowNulls="false" default="((0))" label="Order Seq" />
+    <field name="AtrributeEventID" type="Int32" label="Atrribute Event#">
+      <items style="Lookup" dataController="Dim_EventAttribute" newDataView="createForm1" />
+    </field>
+    <field name="AtrributeEventAttributeID" type="String" readOnly="true" label="Atrribute Event Attribute#" length="20" />
+    <field name="Weight" type="Decimal" label="Weight" />
+    <field name="Threshold" type="Decimal" label="Threshold" />
+    <field name="TemplateID" type="Int32" allowNulls="false" label="Template#">
+      <items style="Lookup" dataController="CB_QueryTemplate" newDataView="createForm1" />
+    </field>
+    <field name="TemplateTemplateName" type="String" readOnly="true" label="Template Name" length="20" />
+    <field name="JoinCriteria" type="String" label="Join Criteria" length="20" />
+    <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" />
+    <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="CB Test Expressions">
+      <headerText>$DefaultGridViewDescription</headerText>
+      <dataFields>
+        <dataField fieldName="TestID" aliasFieldName="TestTestName" />
+        <dataField fieldName="ParentTestExpressionID" aliasFieldName="ParentTestExpressionJoinCriteria" />
+        <dataField fieldName="LeftEventID" aliasFieldName="LeftEventName" />
+        <dataField fieldName="LeftDataElementID" aliasFieldName="LeftDataElementDataElementName" />
+        <dataField fieldName="OperatorID" aliasFieldName="OperatorCode" />
+        <dataField fieldName="RightEventID" aliasFieldName="RightEventName" />
+        <dataField fieldName="RightDataElementID" aliasFieldName="RightDataElementDataElementName" />
+        <dataField fieldName="StartDateRange" columns="10" />
+        <dataField fieldName="EndDateRange" columns="10" />
+        <dataField fieldName="OrderSeq" columns="15" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review CB Test Expressions">
+      <headerText>$DefaultEditViewDescription</headerText>
+      <categories>
+        <category id="c1" headerText="CB Test Expressions" newColumn="true">
+          <description><![CDATA[$DefaultEditDescription]]></description>
+          <dataFields>
+            <dataField fieldName="TestID" aliasFieldName="TestTestName" />
+            <dataField fieldName="ParentTestExpressionID" aliasFieldName="ParentTestExpressionJoinCriteria" />
+            <dataField fieldName="LeftEventID" aliasFieldName="LeftEventName" />
+            <dataField fieldName="LeftDataElementID" aliasFieldName="LeftDataElementDataElementName" />
+            <dataField fieldName="OperatorID" aliasFieldName="OperatorCode" />
+            <dataField fieldName="RightEventID" aliasFieldName="RightEventName" />
+            <dataField fieldName="RightDataElementID" aliasFieldName="RightDataElementDataElementName" />
+            <dataField fieldName="StartDateRange" columns="10" />
+            <dataField fieldName="EndDateRange" columns="10" />
+            <dataField fieldName="OrderSeq" columns="15" />
+            <dataField fieldName="AtrributeEventID" aliasFieldName="AtrributeEventAttributeID" />
+            <dataField fieldName="Weight" columns="15" />
+            <dataField fieldName="Threshold" columns="15" />
+            <dataField fieldName="TemplateID" aliasFieldName="TemplateTemplateName" />
+            <dataField fieldName="JoinCriteria" columns="20" />
+            <dataField fieldName="DateCreated" columns="10" />
+            <dataField fieldName="DateModified" columns="10" />
+          </dataFields>
+        </category>
+        <category id="c2" headerText="Reference Information">
+          <description><![CDATA[$DefaultReferenceDescription]]></description>
+          <dataFields>
+            <dataField fieldName="ParentTestExpressionLeftDataElementDataElementName" columns="20" />
+            <dataField fieldName="ParentTestExpressionLeftDataElementEventName" columns="20" />
+            <dataField fieldName="ParentTestExpressionRightDataElementDataElementName" columns="20" />
+            <dataField fieldName="ParentTestExpressionRightDataElementEventName" columns="20" />
+            <dataField fieldName="ParentTestExpressionOperatorCode" columns="20" />
+            <dataField fieldName="ParentTestExpressionTemplateTemplateName" columns="20" />
+            <dataField fieldName="ParentTestExpressionTestTestName" columns="20" />
+            <dataField fieldName="ParentTestExpressionAtrributeEventAttributeID" columns="20" />
+            <dataField fieldName="ParentTestExpressionLeftEventName" columns="20" />
+            <dataField fieldName="ParentTestExpressionLeftEventEventTypeEventType" columns="20" />
+            <dataField fieldName="ParentTestExpressionLeftEventLogSourceCode" columns="20" />
+            <dataField fieldName="ParentTestExpressionLeftEventTimeSourceCode" columns="20" />
+            <dataField fieldName="ParentTestExpressionRightEventName" columns="20" />
+            <dataField fieldName="ParentTestExpressionRightEventEventTypeEventType" columns="20" />
+            <dataField fieldName="ParentTestExpressionRightEventLogSourceCode" columns="20" />
+            <dataField fieldName="ParentTestExpressionRightEventTimeSourceCode" columns="20" />
+            <dataField fieldName="LeftEventEventTypeEventType" columns="20" />
+            <dataField fieldName="LeftEventLogSourceCode" columns="20" />
+            <dataField fieldName="LeftEventTimeSourceCode" columns="20" />
+            <dataField fieldName="LeftDataElementEventName" columns="20" />
+            <dataField fieldName="LeftDataElementEventEventTypeEventType" columns="20" />
+            <dataField fieldName="LeftDataElementEventLogSourceCode" columns="20" />
+            <dataField fieldName="LeftDataElementEventTimeSourceCode" columns="20" />
+            <dataField fieldName="RightEventEventTypeEventType" columns="20" />
+            <dataField fieldName="RightEventLogSourceCode" columns="20" />
+            <dataField fieldName="RightEventTimeSourceCode" columns="20" />
+            <dataField fieldName="RightDataElementEventName" columns="20" />
+            <dataField fieldName="RightDataElementEventEventTypeEventType" columns="20" />
+            <dataField fieldName="RightDataElementEventLogSourceCode" columns="20" />
+            <dataField fieldName="RightDataElementEventTimeSourceCode" columns="20" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+    <view id="createForm1" type="Form" commandId="command1" label="New CB Test Expressions">
+      <headerText>$DefaultCreateViewDescription</headerText>
+      <categories>
+        <category id="c1" headerText="New CB Test Expressions" newColumn="true">
+          <description><![CDATA[$DefaultNewDescription]]></description>
+          <dataFields>
+            <dataField fieldName="TestID" aliasFieldName="TestTestName" />
+            <dataField fieldName="ParentTestExpressionID" aliasFieldName="ParentTestExpressionJoinCriteria" />
+            <dataField fieldName="LeftEventID" aliasFieldName="LeftEventName" />
+            <dataField fieldName="LeftDataElementID" aliasFieldName="LeftDataElementDataElementName" />
+            <dataField fieldName="OperatorID" aliasFieldName="OperatorCode" />
+            <dataField fieldName="RightEventID" aliasFieldName="RightEventName" />
+            <dataField fieldName="RightDataElementID" aliasFieldName="RightDataElementDataElementName" />
+            <dataField fieldName="StartDateRange" columns="10" />
+            <dataField fieldName="EndDateRange" columns="10" />
+            <dataField fieldName="OrderSeq" columns="15" />
+            <dataField fieldName="AtrributeEventID" aliasFieldName="AtrributeEventAttributeID" />
+            <dataField fieldName="Weight" columns="15" />
+            <dataField fieldName="Threshold" columns="15" />
+            <dataField fieldName="TemplateID" aliasFieldName="TemplateTemplateName" />
+            <dataField fieldName="JoinCriteria" columns="20" />
+            <dataField fieldName="DateCreated" columns="10" />
+            <dataField fieldName="DateModified" columns="10" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+      <action id="a2" commandName="Edit" />
+      <action id="a3" commandName="Delete" />
+      <action id="a6" />
+      <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+      <action id="a8" commandName="New" commandArgument="grid1" />
+      <action id="a9" />
+      <action id="a10" commandName="BatchEdit" />
+      <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a1" commandName="Edit" />
+      <action id="a2" commandName="Delete" />
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+      <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a7" whenLastCommandName="New" commandName="Insert" />
+      <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+      <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+      <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+      <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+    </actionGroup>
+    <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+      <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+    </actionGroup>
+    <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+      <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+      <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a6" commandName="Import" commandArgument="createForm1" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+      <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+</dataController>

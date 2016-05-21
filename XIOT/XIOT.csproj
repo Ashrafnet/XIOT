@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E1177C28-073B-4E3D-BACB-F45DB8D64052}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XIOT</RootNamespace>
+    <AssemblyName>XIOT</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>..\AjaxControlToolkit\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.DataVisualization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Objects\CB_DataElement.cs" />
+    <Compile Include="Data\Objects\CB_ExpressionOperator.cs" />
+    <Compile Include="Data\Objects\CB_PassFailCriteria.cs" />
+    <Compile Include="Data\Objects\CB_QueryTemplate.cs" />
+    <Compile Include="Data\Objects\CB_TestCriteria.cs" />
+    <Compile Include="Data\Objects\CB_TestExpressions.cs" />
+    <Compile Include="Data\Objects\CB_TestPopulation.cs" />
+    <Compile Include="Data\Objects\CB_Tests.cs" />
+    <Compile Include="Data\Objects\Dim_EventAttribute.cs" />
+    <Compile Include="Data\Objects\DIM_Events.cs" />
+    <Compile Include="Data\Objects\DIM_Objects.cs" />
+    <Compile Include="Data\Objects\DIM_People.cs" />
+    <Compile Include="Data\Objects\Groups_People.cs" />
+    <Compile Include="Data\Objects\LU_EventTypes.cs" />
+    <Compile Include="Data\Objects\LU_Groups.cs" />
+    <Compile Include="Data\Objects\LU_LogSource.cs" />
+    <Compile Include="Data\Objects\LU_ObjectType.cs" />
+    <Compile Include="Data\Objects\LU_TimeSource.cs" />
+    <Compile Include="Data\Objects\People_Objects.cs" />
+    <Compile Include="Data\Action.cs" />
+    <Compile Include="Data\ActionArgs.cs" />
+    <Compile Include="Data\ActionGroup.cs" />
+    <Compile Include="Data\ActionHandlerBase.cs" />
+    <Compile Include="Data\ActionResult.cs" />
+    <Compile Include="Data\AnnotationPlugIn.cs" />
+    <Compile Include="Data\BusinessRules.cs" />
+    <Compile Include="Data\Category.cs" />
+    <Compile Include="Data\Common.cs" />
+    <Compile Include="Data\Controller.Core.cs" />
+    <Compile Include="Data\Controller.cs" />
+    <Compile Include="Data\Controller.Export.cs" />
+    <Compile Include="Data\Controller.Filter.cs" />
+    <Compile Include="Data\ControllerConfiguration.cs" />
+    <Compile Include="Data\ControllerNodeSet.cs" />
+    <Compile Include="Data\CultureManager.cs" />
+    <Compile Include="Data\DataAccess.cs" />
+    <Compile Include="Data\DataField.cs" />
+    <Compile Include="Data\DistinctValueRequest.cs" />
+    <Compile Include="Data\DynamicExpression.cs" />
+    <Compile Include="Data\FieldValue.cs" />
+    <Compile Include="Data\FilterFunctions.cs" />
+    <Compile Include="Data\ImportProcessor.cs" />
+    <Compile Include="Data\Localizer.cs" />
+    <Compile Include="Data\PageRequest.cs" />
+    <Compile Include="Data\Transactions.cs" />
+    <Compile Include="Data\View.cs" />
+    <Compile Include="Data\ViewPage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Rules\SharedBusinessRules.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Web\AquariumExtenderBase.cs" />
+    <Compile Include="Web\ChartHost.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web\ControlHost.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web\ControllerDataSource.cs" />
+    <Compile Include="Web\ControllerDataSourceDesign.cs" />
+    <Compile Include="Web\DataViewExtender.cs" />
+    <Compile Include="Web\DataViewLookup.cs" />
+    <Compile Include="Web\DataViewTextBox.cs" />
+    <Compile Include="Web\MembershipBar.cs" />
+    <Compile Include="Web\MembershipBarExtender.cs" />
+    <Compile Include="Web\MenuExtender.cs" />
+    <Compile Include="Web\PageBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Services\DataControllerService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Controllers\Application.xsd" />
+    <None Include="Controllers\DataAquarium.xsd" />
+    <EmbeddedResource Include="Controllers\CB_DataElement.xml" />
+    <EmbeddedResource Include="Controllers\CB_ExpressionOperator.xml" />
+    <EmbeddedResource Include="Controllers\CB_PassFailCriteria.xml" />
+    <EmbeddedResource Include="Controllers\CB_QueryTemplate.xml" />
+    <EmbeddedResource Include="Controllers\CB_TestCriteria.xml" />
+    <EmbeddedResource Include="Controllers\CB_TestExpressions.xml" />
+    <EmbeddedResource Include="Controllers\CB_TestPopulation.xml" />
+    <EmbeddedResource Include="Controllers\CB_Tests.xml" />
+    <EmbeddedResource Include="Controllers\Dim_EventAttribute.xml" />
+    <EmbeddedResource Include="Controllers\DIM_Events.xml" />
+    <EmbeddedResource Include="Controllers\DIM_Objects.xml" />
+    <EmbeddedResource Include="Controllers\DIM_People.xml" />
+    <EmbeddedResource Include="Controllers\Groups_People.xml" />
+    <EmbeddedResource Include="Controllers\LU_EventTypes.xml" />
+    <EmbeddedResource Include="Controllers\LU_Groups.xml" />
+    <EmbeddedResource Include="Controllers\LU_LogSource.xml" />
+    <EmbeddedResource Include="Controllers\LU_ObjectType.xml" />
+    <EmbeddedResource Include="Controllers\LU_TimeSource.xml" />
+    <EmbeddedResource Include="Controllers\People_Objects.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Handlers\Blob.cs" />
+    <Compile Include="Handlers\Details.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Handlers\Export.cs" />
+    <Compile Include="Handlers\Import.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\jquery-1.7.1-vsdoc.js" />
+    <EmbeddedResource Include="Scripts\Web.DataView.js" />
+    <EmbeddedResource Include="Scripts\Web.DataViewResources.en_US.js" />
+    <EmbeddedResource Include="Scripts\Web.DataViewResources.js" />
+    <EmbeddedResource Include="Scripts\Web.Membership.js" />
+    <EmbeddedResource Include="Scripts\Web.MembershipResources.en_US.js" />
+    <EmbeddedResource Include="Scripts\Web.MembershipResources.js" />
+    <EmbeddedResource Include="Scripts\Web.Menu.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Theme\Acrobat.gif" />
+    <EmbeddedResource Include="Theme\ActionBarBg.gif" />
+    <EmbeddedResource Include="Theme\ActionBarDiv.gif" />
+    <EmbeddedResource Include="Theme\ActionGroupBg.gif" />
+    <EmbeddedResource Include="Theme\AddBookmark.gif" />
+    <EmbeddedResource Include="Theme\AdvancedSearch.gif" />
+    <EmbeddedResource Include="Theme\Aquarium.css" />
+    <EmbeddedResource Include="Theme\ArrowBkg.gif" />
+    <EmbeddedResource Include="Theme\Attach.gif" />
+    <EmbeddedResource Include="Theme\Attention.gif" />
+    <EmbeddedResource Include="Theme\BACK.gif" />
+    <EmbeddedResource Include="Theme\Calendar.gif" />
+    <EmbeddedResource Include="Theme\CheckMark.gif" />
+    <EmbeddedResource Include="Theme\CheckMark2.gif" />
+    <EmbeddedResource Include="Theme\CheckMarkLarge.GIF" />
+    <EmbeddedResource Include="Theme\Close.gif" />
+    <EmbeddedResource Include="Theme\DataSheet.gif" />
+    <EmbeddedResource Include="Theme\Delete.gif" />
+    <EmbeddedResource Include="Theme\DropArrow.gif" />
+    <EmbeddedResource Include="Theme\Edit.gif" />
+    <EmbeddedResource Include="Theme\EditMode.gif" />
+    <EmbeddedResource Include="Theme\Erase.gif" />
+    <EmbeddedResource Include="Theme\Excel.gif" />
+    <EmbeddedResource Include="Theme\EXCLAIM.gif" />
+    <EmbeddedResource Include="Theme\ExportCsv.gif" />
+    <EmbeddedResource Include="Theme\ExportRowset.gif" />
+    <EmbeddedResource Include="Theme\ExportRss.gif" />
+    <EmbeddedResource Include="Theme\Filter.gif" />
+    <EmbeddedResource Include="Theme\FilterOff.gif" />
+    <EmbeddedResource Include="Theme\FilterOffDisabled.gif" />
+    <EmbeddedResource Include="Theme\FORWARD.gif" />
+    <EmbeddedResource Include="Theme\HeaderBg.gif" />
+    <EmbeddedResource Include="Theme\ICONGO.gif" />
+    <EmbeddedResource Include="Theme\Import.png" />
+    <EmbeddedResource Include="Theme\Information.gif" />
+    <EmbeddedResource Include="Theme\Maximize.gif" />
+    <EmbeddedResource Include="Theme\MenuBg.gif" />
+    <EmbeddedResource Include="Theme\MenuBgLarge.gif" />
+    <EmbeddedResource Include="Theme\Minimize.gif" />
+    <EmbeddedResource Include="Theme\MultiPage.gif" />
+    <EmbeddedResource Include="Theme\Navigate.gif" />
+    <EmbeddedResource Include="Theme\NavStrip.gif" />
+    <EmbeddedResource Include="Theme\New.gif" />
+    <EmbeddedResource Include="Theme\NewLarge.gif" />
+    <EmbeddedResource Include="Theme\ObjectRef.gif" />
+    <EmbeddedResource Include="Theme\Paste.png" />
+    <EmbeddedResource Include="Theme\PopupArrow.gif" />
+    <EmbeddedResource Include="Theme\Print.png" />
+    <EmbeddedResource Include="Theme\QuickFind.gif" />
+    <EmbeddedResource Include="Theme\Refresh.png" />
+    <EmbeddedResource Include="Theme\Save.gif" />
+    <EmbeddedResource Include="Theme\SaveLarge.gif" />
+    <EmbeddedResource Include="Theme\Search.gif" />
+    <EmbeddedResource Include="Theme\Search.png" />
+    <EmbeddedResource Include="Theme\SearchPlusMinus.png" />
+    <EmbeddedResource Include="Theme\SettingsGraphic.jpg" />
+    <EmbeddedResource Include="Theme\SortAZ.gif" />
+    <EmbeddedResource Include="Theme\SortDown.gif" />
+    <EmbeddedResource Include="Theme\SortUp.gif" />
+    <EmbeddedResource Include="Theme\SortZA.gif" />
+    <EmbeddedResource Include="Theme\StatusBar.png" />
+    <EmbeddedResource Include="Theme\TabsActiveTab.gif" />
+    <EmbeddedResource Include="Theme\TabsBar.gif" />
+    <EmbeddedResource Include="Theme\TabsInactiveTab.gif" />
+    <EmbeddedResource Include="Theme\TabsSelectedTab.gif" />
+    <EmbeddedResource Include="Theme\TreeControls.png" />
+    <EmbeddedResource Include="Theme\Undo.gif" />
+    <EmbeddedResource Include="Theme\ViewNameBg.gif" />
+    <EmbeddedResource Include="Theme\Wait.gif" />
+    <EmbeddedResource Include="Theme\Word.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.en_US.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!--
+        To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  
+      -->
+</Project>

@@ -1,0 +1,2859 @@
+<dataControllerCollection snapshot="false" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <dataController name="CB_DataElement" conflictDetection="overwriteChanges" label="CB Data Element" nativeSchema="dbo" nativeTableName="CB_DataElement">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"CB_DataElement"."DataElementID" "DataElementID"
+	,"CB_DataElement"."EventID" "EventID"
+	,"Event"."Name" "EventName"
+	,"EventEventType"."EventType" "EventEventTypeEventType"
+	,"EventLogSource"."Code" "EventLogSourceCode"
+	,"EventTimeSource"."Code" "EventTimeSourceCode"
+	,"CB_DataElement"."DataElementName" "DataElementName"
+	,"CB_DataElement"."Description" "Description"
+	,"CB_DataElement"."IsActive" "IsActive"
+	,"CB_DataElement"."DateCreated" "DateCreated"
+	,"CB_DataElement"."DateModified" "DateModified"
+from "dbo"."CB_DataElement" "CB_DataElement"
+	left join "dbo"."DIM_Events" "Event" on "CB_DataElement"."EventID" = "Event"."EventID"
+	left join "dbo"."LU_EventTypes" "EventEventType" on "Event"."EventTypeID" = "EventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "EventLogSource" on "Event"."LogSourceID" = "EventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "EventTimeSource" on "Event"."TimeSourceID" = "EventTimeSource"."TimeSourceID"
+</text>
+      </command>
+      <command id="DataElementIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="DataElementID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="DataElementID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Data Element#" readOnly="true" />
+      <field name="EventID" type="Int32" allowNulls="false" label="Event#" showInSummary="true">
+        <items style="Lookup" dataController="DIM_Events" newDataView="createForm1" />
+      </field>
+      <field name="EventName" type="String" readOnly="true" label="Event Name" length="20" />
+      <field name="EventEventTypeEventType" type="String" readOnly="true" label="Event Type" length="20" />
+      <field name="EventLogSourceCode" type="String" readOnly="true" label="Event Log Source Code" length="20" />
+      <field name="EventTimeSourceCode" type="String" readOnly="true" label="Event Time Source Code" length="20" />
+      <field name="DataElementName" type="String" allowNulls="false" label="Data Element Name" length="20" showInSummary="true" />
+      <field name="Description" type="String" label="Description" length="500" showInSummary="true" />
+      <field name="IsActive" type="Boolean" allowNulls="false" default="((1))" label="Is Active" showInSummary="true" />
+      <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" showInSummary="true" />
+      <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="CB Data Element">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="EventID" aliasFieldName="EventName" />
+          <dataField fieldName="DataElementName" columns="20" />
+          <dataField fieldName="Description" />
+          <dataField fieldName="IsActive" />
+          <dataField fieldName="DateCreated" columns="10" />
+          <dataField fieldName="DateModified" columns="10" />
+          <dataField fieldName="EventEventTypeEventType" columns="20" />
+          <dataField fieldName="EventLogSourceCode" columns="20" />
+          <dataField fieldName="EventTimeSourceCode" columns="20" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review CB Data Element">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="CB Data Element">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="EventID" aliasFieldName="EventName" />
+              <dataField fieldName="DataElementName" columns="20" />
+              <dataField fieldName="Description" />
+              <dataField fieldName="IsActive" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+          <category id="c2" headerText="Reference Information">
+            <description>$DefaultReferenceDescription</description>
+            <dataFields>
+              <dataField fieldName="EventEventTypeEventType" columns="20" />
+              <dataField fieldName="EventLogSourceCode" columns="20" />
+              <dataField fieldName="EventTimeSourceCode" columns="20" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New CB Data Element">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New CB Data Element">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="EventID" aliasFieldName="EventName" />
+              <dataField fieldName="DataElementName" columns="20" />
+              <dataField fieldName="Description" />
+              <dataField fieldName="IsActive" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="CB_ExpressionOperator" conflictDetection="overwriteChanges" label="CB Expression Operator" nativeSchema="dbo" nativeTableName="CB_ExpressionOperator">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"CB_ExpressionOperator"."OperatorID" "OperatorID"
+	,"CB_ExpressionOperator"."Code" "Code"
+	,"CB_ExpressionOperator"."Description" "Description"
+	,"CB_ExpressionOperator"."IsActive" "IsActive"
+	,"CB_ExpressionOperator"."DateCreated" "DateCreated"
+	,"CB_ExpressionOperator"."DateModified" "DateModified"
+from "dbo"."CB_ExpressionOperator" "CB_ExpressionOperator"
+</text>
+      </command>
+      <command id="OperatorIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="OperatorID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="OperatorID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Operator#" readOnly="true" />
+      <field name="Code" type="String" allowNulls="false" label="Code" length="20" showInSummary="true" />
+      <field name="Description" type="String" label="Description" length="500" showInSummary="true" />
+      <field name="IsActive" type="Boolean" allowNulls="false" default="((1))" label="Is Active" showInSummary="true" />
+      <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" showInSummary="true" />
+      <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" showInSummary="true" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="CB Expression Operator">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="Code" columns="20" />
+          <dataField fieldName="Description" />
+          <dataField fieldName="IsActive" />
+          <dataField fieldName="DateCreated" columns="10" />
+          <dataField fieldName="DateModified" columns="10" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review CB Expression Operator">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="CB Expression Operator">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="Code" columns="20" />
+              <dataField fieldName="Description" />
+              <dataField fieldName="IsActive" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New CB Expression Operator">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New CB Expression Operator">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="Code" columns="20" />
+              <dataField fieldName="Description" />
+              <dataField fieldName="IsActive" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="CB_PassFailCriteria" conflictDetection="overwriteChanges" label="CB Pass Fail Criteria" nativeSchema="dbo" nativeTableName="CB_PassFailCriteria">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"CB_PassFailCriteria"."TestExpressionID" "TestExpressionID"
+	,"TestExpression"."JoinCriteria" "TestExpressionJoinCriteria"
+	,"TestExpressionLeftDataElement"."DataElementName" "TestExpressionLeftDataElementDataElementName"
+	,"TestExpressionLeftDataElementEvent"."Name" "TestExpressionLeftDataElementEventName"
+	,"TestExpressionRightDataElement"."DataElementName" "TestExpressionRightDataElementDataElementName"
+	,"TestExpressionRightDataElementEvent"."Name" "TestExpressionRightDataElementEventName"
+	,"TestExpressionOperator"."Code" "TestExpressionOperatorCode"
+	,"TestExpressionTemplate"."TemplateName" "TestExpressionTemplateTemplateName"
+	,"TestExpressionTest"."TestName" "TestExpressionTestTestName"
+	,"TestExpressionAtrributeEvent"."AttributeID" "TestExpressionAtrributeEventAttributeID"
+	,"TestExpressionLeftEvent"."Name" "TestExpressionLeftEventName"
+	,"TestExpressionLeftEventEventType"."EventType" "TestExpressionLeftEventEventTypeEventType"
+	,"TestExpressionLeftEventLogSource"."Code" "TestExpressionLeftEventLogSourceCode"
+	,"TestExpressionLeftEventTimeSource"."Code" "TestExpressionLeftEventTimeSourceCode"
+	,"TestExpressionRightEvent"."Name" "TestExpressionRightEventName"
+	,"TestExpressionRightEventEventType"."EventType" "TestExpressionRightEventEventTypeEventType"
+	,"TestExpressionRightEventLogSource"."Code" "TestExpressionRightEventLogSourceCode"
+	,"TestExpressionRightEventTimeSource"."Code" "TestExpressionRightEventTimeSourceCode"
+	,"CB_PassFailCriteria"."TestCriteriaID" "TestCriteriaID"
+	,"TestCriteria"."Code" "TestCriteriaCode"
+	,"CB_PassFailCriteria"."IsPass" "IsPass"
+	,"CB_PassFailCriteria"."DateCreated" "DateCreated"
+	,"CB_PassFailCriteria"."DateModified" "DateModified"
+from "dbo"."CB_PassFailCriteria" "CB_PassFailCriteria"
+	left join "dbo"."CB_TestExpressions" "TestExpression" on "CB_PassFailCriteria"."TestExpressionID" = "TestExpression"."TestExpressionID"
+	left join "dbo"."CB_DataElement" "TestExpressionLeftDataElement" on "TestExpression"."LeftDataElementID" = "TestExpressionLeftDataElement"."DataElementID"
+	left join "dbo"."DIM_Events" "TestExpressionLeftDataElementEvent" on "TestExpressionLeftDataElement"."EventID" = "TestExpressionLeftDataElementEvent"."EventID"
+	left join "dbo"."CB_DataElement" "TestExpressionRightDataElement" on "TestExpression"."RightDataElementID" = "TestExpressionRightDataElement"."DataElementID"
+	left join "dbo"."DIM_Events" "TestExpressionRightDataElementEvent" on "TestExpressionRightDataElement"."EventID" = "TestExpressionRightDataElementEvent"."EventID"
+	left join "dbo"."CB_ExpressionOperator" "TestExpressionOperator" on "TestExpression"."OperatorID" = "TestExpressionOperator"."OperatorID"
+	left join "dbo"."CB_QueryTemplate" "TestExpressionTemplate" on "TestExpression"."TemplateID" = "TestExpressionTemplate"."TemplateID"
+	left join "dbo"."CB_Tests" "TestExpressionTest" on "TestExpression"."TestID" = "TestExpressionTest"."TestID"
+	left join "dbo"."Dim_EventAttribute" "TestExpressionAtrributeEvent" on "TestExpression"."AtrributeEventID" = "TestExpressionAtrributeEvent"."EventID"
+	left join "dbo"."DIM_Events" "TestExpressionLeftEvent" on "TestExpression"."LeftEventID" = "TestExpressionLeftEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "TestExpressionLeftEventEventType" on "TestExpressionLeftEvent"."EventTypeID" = "TestExpressionLeftEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "TestExpressionLeftEventLogSource" on "TestExpressionLeftEvent"."LogSourceID" = "TestExpressionLeftEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "TestExpressionLeftEventTimeSource" on "TestExpressionLeftEvent"."TimeSourceID" = "TestExpressionLeftEventTimeSource"."TimeSourceID"
+	left join "dbo"."DIM_Events" "TestExpressionRightEvent" on "TestExpression"."RightEventID" = "TestExpressionRightEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "TestExpressionRightEventEventType" on "TestExpressionRightEvent"."EventTypeID" = "TestExpressionRightEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "TestExpressionRightEventLogSource" on "TestExpressionRightEvent"."LogSourceID" = "TestExpressionRightEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "TestExpressionRightEventTimeSource" on "TestExpressionRightEvent"."TimeSourceID" = "TestExpressionRightEventTimeSource"."TimeSourceID"
+	left join "dbo"."CB_TestCriteria" "TestCriteria" on "CB_PassFailCriteria"."TestCriteriaID" = "TestCriteria"."TestCriteriaID"
+</text>
+      </command>
+    </commands>
+    <fields>
+      <field name="TestExpressionID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Test Expression#" showInSummary="true">
+        <items style="Lookup" dataController="CB_TestExpressions" newDataView="createForm1" />
+      </field>
+      <field name="TestExpressionJoinCriteria" type="String" readOnly="true" label="Test Expression Join Criteria" length="20" />
+      <field name="TestExpressionLeftDataElementDataElementName" type="String" readOnly="true" label="Test Expression Left Data Element Name" length="20" />
+      <field name="TestExpressionLeftDataElementEventName" type="String" readOnly="true" label="Test Expression Left Data Element Event Name" length="20" />
+      <field name="TestExpressionRightDataElementDataElementName" type="String" readOnly="true" label="Test Expression Right Data Element Name" length="20" />
+      <field name="TestExpressionRightDataElementEventName" type="String" readOnly="true" label="Test Expression Right Data Element Event Name" length="20" />
+      <field name="TestExpressionOperatorCode" type="String" readOnly="true" label="Test Expression Operator Code" length="20" />
+      <field name="TestExpressionTemplateTemplateName" type="String" readOnly="true" label="Test Expression Template Name" length="20" />
+      <field name="TestExpressionTestTestName" type="String" readOnly="true" label="Test Expression Test Name" length="20" />
+      <field name="TestExpressionAtrributeEventAttributeID" type="String" readOnly="true" label="Test Expression Atrribute Event Attribute#" length="20" />
+      <field name="TestExpressionLeftEventName" type="String" readOnly="true" label="Test Expression Left Event Name" length="20" />
+      <field name="TestExpressionLeftEventEventTypeEventType" type="String" readOnly="true" label="Test Expression Left Event Type" length="20" />
+      <field name="TestExpressionLeftEventLogSourceCode" type="String" readOnly="true" label="Test Expression Left Event Log Source Code" length="20" />
+      <field name="TestExpressionLeftEventTimeSourceCode" type="String" readOnly="true" label="Test Expression Left Event Time Source Code" length="20" />
+      <field name="TestExpressionRightEventName" type="String" readOnly="true" label="Test Expression Right Event Name" length="20" />
+      <field name="TestExpressionRightEventEventTypeEventType" type="String" readOnly="true" label="Test Expression Right Event Type" length="20" />
+      <field name="TestExpressionRightEventLogSourceCode" type="String" readOnly="true" label="Test Expression Right Event Log Source Code" length="20" />
+      <field name="TestExpressionRightEventTimeSourceCode" type="String" readOnly="true" label="Test Expression Right Event Time Source Code" length="20" />
+      <field name="TestCriteriaID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Test Criteria#" showInSummary="true">
+        <items style="Lookup" dataController="CB_TestCriteria" newDataView="createForm1" />
+      </field>
+      <field name="TestCriteriaCode" type="String" readOnly="true" label="Test Criteria Code" length="20" />
+      <field name="IsPass" type="Boolean" label="Is Pass" showInSummary="true" />
+      <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" showInSummary="true" />
+      <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" showInSummary="true" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="CB Pass Fail Criteria">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="TestExpressionID" aliasFieldName="TestExpressionJoinCriteria" />
+          <dataField fieldName="TestCriteriaID" aliasFieldName="TestCriteriaCode" />
+          <dataField fieldName="IsPass" />
+          <dataField fieldName="DateCreated" columns="10" />
+          <dataField fieldName="DateModified" columns="10" />
+          <dataField fieldName="TestExpressionLeftDataElementDataElementName" columns="20" />
+          <dataField fieldName="TestExpressionLeftDataElementEventName" columns="20" />
+          <dataField fieldName="TestExpressionRightDataElementDataElementName" columns="20" />
+          <dataField fieldName="TestExpressionRightDataElementEventName" columns="20" />
+          <dataField fieldName="TestExpressionOperatorCode" columns="20" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review CB Pass Fail Criteria">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="CB Pass Fail Criteria">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="TestExpressionID" aliasFieldName="TestExpressionJoinCriteria" />
+              <dataField fieldName="TestCriteriaID" aliasFieldName="TestCriteriaCode" />
+              <dataField fieldName="IsPass" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+          <category id="c2" headerText="Reference Information">
+            <description>$DefaultReferenceDescription</description>
+            <dataFields>
+              <dataField fieldName="TestExpressionLeftDataElementDataElementName" columns="20" />
+              <dataField fieldName="TestExpressionLeftDataElementEventName" columns="20" />
+              <dataField fieldName="TestExpressionRightDataElementDataElementName" columns="20" />
+              <dataField fieldName="TestExpressionRightDataElementEventName" columns="20" />
+              <dataField fieldName="TestExpressionOperatorCode" columns="20" />
+              <dataField fieldName="TestExpressionTemplateTemplateName" columns="20" />
+              <dataField fieldName="TestExpressionTestTestName" columns="20" />
+              <dataField fieldName="TestExpressionAtrributeEventAttributeID" columns="20" />
+              <dataField fieldName="TestExpressionLeftEventName" columns="20" />
+              <dataField fieldName="TestExpressionLeftEventEventTypeEventType" columns="20" />
+              <dataField fieldName="TestExpressionLeftEventLogSourceCode" columns="20" />
+              <dataField fieldName="TestExpressionLeftEventTimeSourceCode" columns="20" />
+              <dataField fieldName="TestExpressionRightEventName" columns="20" />
+              <dataField fieldName="TestExpressionRightEventEventTypeEventType" columns="20" />
+              <dataField fieldName="TestExpressionRightEventLogSourceCode" columns="20" />
+              <dataField fieldName="TestExpressionRightEventTimeSourceCode" columns="20" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New CB Pass Fail Criteria">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New CB Pass Fail Criteria">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="TestExpressionID" aliasFieldName="TestExpressionJoinCriteria" />
+              <dataField fieldName="TestCriteriaID" aliasFieldName="TestCriteriaCode" />
+              <dataField fieldName="IsPass" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="CB_QueryTemplate" conflictDetection="overwriteChanges" label="CB Query Template" nativeSchema="dbo" nativeTableName="CB_QueryTemplate">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"CB_QueryTemplate"."TemplateID" "TemplateID"
+	,"CB_QueryTemplate"."TemplateName" "TemplateName"
+	,"CB_QueryTemplate"."Description" "Description"
+	,"CB_QueryTemplate"."Body" "Body"
+	,"CB_QueryTemplate"."IsActive" "IsActive"
+	,"CB_QueryTemplate"."DateCreated" "DateCreated"
+	,"CB_QueryTemplate"."DateModified" "DateModified"
+from "dbo"."CB_QueryTemplate" "CB_QueryTemplate"
+</text>
+      </command>
+      <command id="TemplateIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="TemplateID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="TemplateID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Template#" readOnly="true" />
+      <field name="TemplateName" type="String" allowNulls="false" label="Template Name" length="20" showInSummary="true" />
+      <field name="Description" type="String" label="Description" length="500" showInSummary="true" />
+      <field name="Body" type="String" allowNulls="false" allowQBE="false" allowSorting="false" label="Body" length="-1" showInSummary="true" />
+      <field name="IsActive" type="Boolean" allowNulls="false" default="((1))" label="Is Active" showInSummary="true" />
+      <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" showInSummary="true" />
+      <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="CB Query Template">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="TemplateName" columns="20" />
+          <dataField fieldName="Description" />
+          <dataField fieldName="Body" rows="5" />
+          <dataField fieldName="IsActive" />
+          <dataField fieldName="DateCreated" columns="10" />
+          <dataField fieldName="DateModified" columns="10" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review CB Query Template">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="CB Query Template">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="TemplateName" columns="20" />
+              <dataField fieldName="Description" />
+              <dataField fieldName="Body" rows="5" />
+              <dataField fieldName="IsActive" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New CB Query Template">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New CB Query Template">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="TemplateName" columns="20" />
+              <dataField fieldName="Description" />
+              <dataField fieldName="Body" rows="5" />
+              <dataField fieldName="IsActive" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="CB_TestCriteria" conflictDetection="overwriteChanges" label="CB Test Criteria" nativeSchema="dbo" nativeTableName="CB_TestCriteria">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"CB_TestCriteria"."TestCriteriaID" "TestCriteriaID"
+	,"CB_TestCriteria"."Code" "Code"
+	,"CB_TestCriteria"."Description" "Description"
+	,"CB_TestCriteria"."IsActive" "IsActive"
+	,"CB_TestCriteria"."DateCreated" "DateCreated"
+	,"CB_TestCriteria"."DateModified" "DateModified"
+from "dbo"."CB_TestCriteria" "CB_TestCriteria"
+</text>
+      </command>
+      <command id="TestCriteriaIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="TestCriteriaID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="TestCriteriaID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Test Criteria#" readOnly="true" />
+      <field name="Code" type="String" allowNulls="false" label="Code" length="20" showInSummary="true" />
+      <field name="Description" type="String" label="Description" length="500" showInSummary="true" />
+      <field name="IsActive" type="Boolean" allowNulls="false" default="((1))" label="Is Active" showInSummary="true" />
+      <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" showInSummary="true" />
+      <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" showInSummary="true" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="CB Test Criteria">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="Code" columns="20" />
+          <dataField fieldName="Description" />
+          <dataField fieldName="IsActive" />
+          <dataField fieldName="DateCreated" columns="10" />
+          <dataField fieldName="DateModified" columns="10" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review CB Test Criteria">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="CB Test Criteria">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="Code" columns="20" />
+              <dataField fieldName="Description" />
+              <dataField fieldName="IsActive" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New CB Test Criteria">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New CB Test Criteria">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="Code" columns="20" />
+              <dataField fieldName="Description" />
+              <dataField fieldName="IsActive" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="CB_TestExpressions" conflictDetection="overwriteChanges" label="CB Test Expressions" nativeSchema="dbo" nativeTableName="CB_TestExpressions">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"CB_TestExpressions"."TestID" "TestID"
+	,"Test"."TestName" "TestTestName"
+	,"CB_TestExpressions"."TestExpressionID" "TestExpressionID"
+	,"CB_TestExpressions"."ParentTestExpressionID" "ParentTestExpressionID"
+	,"ParentTestExpression"."JoinCriteria" "ParentTestExpressionJoinCriteria"
+	,"ParentTestExpressionLeftDataElement"."DataElementName" "ParentTestExpressionLeftDataElementDataElementName"
+	,"ParentTestExpressionLeftDataElementEvent"."Name" "ParentTestExpressionLeftDataElementEventName"
+	,"ParentTestExpressionRightDataElement"."DataElementName" "ParentTestExpressionRightDataElementDataElementName"
+	,"ParentTestExpressionRightDataElementEvent"."Name" "ParentTestExpressionRightDataElementEventName"
+	,"ParentTestExpressionOperator"."Code" "ParentTestExpressionOperatorCode"
+	,"ParentTestExpressionTemplate"."TemplateName" "ParentTestExpressionTemplateTemplateName"
+	,"ParentTestExpressionTest"."TestName" "ParentTestExpressionTestTestName"
+	,"ParentTestExpressionAtrributeEvent"."AttributeID" "ParentTestExpressionAtrributeEventAttributeID"
+	,"ParentTestExpressionLeftEvent"."Name" "ParentTestExpressionLeftEventName"
+	,"ParentTestExpressionLeftEventEventType"."EventType" "ParentTestExpressionLeftEventEventTypeEventType"
+	,"ParentTestExpressionLeftEventLogSource"."Code" "ParentTestExpressionLeftEventLogSourceCode"
+	,"ParentTestExpressionLeftEventTimeSource"."Code" "ParentTestExpressionLeftEventTimeSourceCode"
+	,"ParentTestExpressionRightEvent"."Name" "ParentTestExpressionRightEventName"
+	,"ParentTestExpressionRightEventEventType"."EventType" "ParentTestExpressionRightEventEventTypeEventType"
+	,"ParentTestExpressionRightEventLogSource"."Code" "ParentTestExpressionRightEventLogSourceCode"
+	,"ParentTestExpressionRightEventTimeSource"."Code" "ParentTestExpressionRightEventTimeSourceCode"
+	,"CB_TestExpressions"."LeftEventID" "LeftEventID"
+	,"LeftEvent"."Name" "LeftEventName"
+	,"LeftEventEventType"."EventType" "LeftEventEventTypeEventType"
+	,"LeftEventLogSource"."Code" "LeftEventLogSourceCode"
+	,"LeftEventTimeSource"."Code" "LeftEventTimeSourceCode"
+	,"CB_TestExpressions"."LeftDataElementID" "LeftDataElementID"
+	,"LeftDataElement"."DataElementName" "LeftDataElementDataElementName"
+	,"LeftDataElementEvent"."Name" "LeftDataElementEventName"
+	,"LeftDataElementEventEventType"."EventType" "LeftDataElementEventEventTypeEventType"
+	,"LeftDataElementEventLogSource"."Code" "LeftDataElementEventLogSourceCode"
+	,"LeftDataElementEventTimeSource"."Code" "LeftDataElementEventTimeSourceCode"
+	,"CB_TestExpressions"."OperatorID" "OperatorID"
+	,"Operator"."Code" "OperatorCode"
+	,"CB_TestExpressions"."RightEventID" "RightEventID"
+	,"RightEvent"."Name" "RightEventName"
+	,"RightEventEventType"."EventType" "RightEventEventTypeEventType"
+	,"RightEventLogSource"."Code" "RightEventLogSourceCode"
+	,"RightEventTimeSource"."Code" "RightEventTimeSourceCode"
+	,"CB_TestExpressions"."RightDataElementID" "RightDataElementID"
+	,"RightDataElement"."DataElementName" "RightDataElementDataElementName"
+	,"RightDataElementEvent"."Name" "RightDataElementEventName"
+	,"RightDataElementEventEventType"."EventType" "RightDataElementEventEventTypeEventType"
+	,"RightDataElementEventLogSource"."Code" "RightDataElementEventLogSourceCode"
+	,"RightDataElementEventTimeSource"."Code" "RightDataElementEventTimeSourceCode"
+	,"CB_TestExpressions"."StartDateRange" "StartDateRange"
+	,"CB_TestExpressions"."EndDateRange" "EndDateRange"
+	,"CB_TestExpressions"."OrderSeq" "OrderSeq"
+	,"CB_TestExpressions"."AtrributeEventID" "AtrributeEventID"
+	,"AtrributeEvent"."AttributeID" "AtrributeEventAttributeID"
+	,"CB_TestExpressions"."Weight" "Weight"
+	,"CB_TestExpressions"."Threshold" "Threshold"
+	,"CB_TestExpressions"."TemplateID" "TemplateID"
+	,"Template"."TemplateName" "TemplateTemplateName"
+	,"CB_TestExpressions"."JoinCriteria" "JoinCriteria"
+	,"CB_TestExpressions"."DateCreated" "DateCreated"
+	,"CB_TestExpressions"."DateModified" "DateModified"
+from "dbo"."CB_TestExpressions" "CB_TestExpressions"
+	left join "dbo"."CB_Tests" "Test" on "CB_TestExpressions"."TestID" = "Test"."TestID"
+	left join "dbo"."CB_TestExpressions" "ParentTestExpression" on "CB_TestExpressions"."ParentTestExpressionID" = "ParentTestExpression"."TestExpressionID"
+	left join "dbo"."CB_DataElement" "ParentTestExpressionLeftDataElement" on "ParentTestExpression"."LeftDataElementID" = "ParentTestExpressionLeftDataElement"."DataElementID"
+	left join "dbo"."DIM_Events" "ParentTestExpressionLeftDataElementEvent" on "ParentTestExpressionLeftDataElement"."EventID" = "ParentTestExpressionLeftDataElementEvent"."EventID"
+	left join "dbo"."CB_DataElement" "ParentTestExpressionRightDataElement" on "ParentTestExpression"."RightDataElementID" = "ParentTestExpressionRightDataElement"."DataElementID"
+	left join "dbo"."DIM_Events" "ParentTestExpressionRightDataElementEvent" on "ParentTestExpressionRightDataElement"."EventID" = "ParentTestExpressionRightDataElementEvent"."EventID"
+	left join "dbo"."CB_ExpressionOperator" "ParentTestExpressionOperator" on "ParentTestExpression"."OperatorID" = "ParentTestExpressionOperator"."OperatorID"
+	left join "dbo"."CB_QueryTemplate" "ParentTestExpressionTemplate" on "ParentTestExpression"."TemplateID" = "ParentTestExpressionTemplate"."TemplateID"
+	left join "dbo"."CB_Tests" "ParentTestExpressionTest" on "ParentTestExpression"."TestID" = "ParentTestExpressionTest"."TestID"
+	left join "dbo"."Dim_EventAttribute" "ParentTestExpressionAtrributeEvent" on "ParentTestExpression"."AtrributeEventID" = "ParentTestExpressionAtrributeEvent"."EventID"
+	left join "dbo"."DIM_Events" "ParentTestExpressionLeftEvent" on "ParentTestExpression"."LeftEventID" = "ParentTestExpressionLeftEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "ParentTestExpressionLeftEventEventType" on "ParentTestExpressionLeftEvent"."EventTypeID" = "ParentTestExpressionLeftEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "ParentTestExpressionLeftEventLogSource" on "ParentTestExpressionLeftEvent"."LogSourceID" = "ParentTestExpressionLeftEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "ParentTestExpressionLeftEventTimeSource" on "ParentTestExpressionLeftEvent"."TimeSourceID" = "ParentTestExpressionLeftEventTimeSource"."TimeSourceID"
+	left join "dbo"."DIM_Events" "ParentTestExpressionRightEvent" on "ParentTestExpression"."RightEventID" = "ParentTestExpressionRightEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "ParentTestExpressionRightEventEventType" on "ParentTestExpressionRightEvent"."EventTypeID" = "ParentTestExpressionRightEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "ParentTestExpressionRightEventLogSource" on "ParentTestExpressionRightEvent"."LogSourceID" = "ParentTestExpressionRightEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "ParentTestExpressionRightEventTimeSource" on "ParentTestExpressionRightEvent"."TimeSourceID" = "ParentTestExpressionRightEventTimeSource"."TimeSourceID"
+	left join "dbo"."DIM_Events" "LeftEvent" on "CB_TestExpressions"."LeftEventID" = "LeftEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "LeftEventEventType" on "LeftEvent"."EventTypeID" = "LeftEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "LeftEventLogSource" on "LeftEvent"."LogSourceID" = "LeftEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "LeftEventTimeSource" on "LeftEvent"."TimeSourceID" = "LeftEventTimeSource"."TimeSourceID"
+	left join "dbo"."CB_DataElement" "LeftDataElement" on "CB_TestExpressions"."LeftDataElementID" = "LeftDataElement"."DataElementID"
+	left join "dbo"."DIM_Events" "LeftDataElementEvent" on "LeftDataElement"."EventID" = "LeftDataElementEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "LeftDataElementEventEventType" on "LeftDataElementEvent"."EventTypeID" = "LeftDataElementEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "LeftDataElementEventLogSource" on "LeftDataElementEvent"."LogSourceID" = "LeftDataElementEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "LeftDataElementEventTimeSource" on "LeftDataElementEvent"."TimeSourceID" = "LeftDataElementEventTimeSource"."TimeSourceID"
+	left join "dbo"."CB_ExpressionOperator" "Operator" on "CB_TestExpressions"."OperatorID" = "Operator"."OperatorID"
+	left join "dbo"."DIM_Events" "RightEvent" on "CB_TestExpressions"."RightEventID" = "RightEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "RightEventEventType" on "RightEvent"."EventTypeID" = "RightEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "RightEventLogSource" on "RightEvent"."LogSourceID" = "RightEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "RightEventTimeSource" on "RightEvent"."TimeSourceID" = "RightEventTimeSource"."TimeSourceID"
+	left join "dbo"."CB_DataElement" "RightDataElement" on "CB_TestExpressions"."RightDataElementID" = "RightDataElement"."DataElementID"
+	left join "dbo"."DIM_Events" "RightDataElementEvent" on "RightDataElement"."EventID" = "RightDataElementEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "RightDataElementEventEventType" on "RightDataElementEvent"."EventTypeID" = "RightDataElementEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "RightDataElementEventLogSource" on "RightDataElementEvent"."LogSourceID" = "RightDataElementEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "RightDataElementEventTimeSource" on "RightDataElementEvent"."TimeSourceID" = "RightDataElementEventTimeSource"."TimeSourceID"
+	left join "dbo"."Dim_EventAttribute" "AtrributeEvent" on "CB_TestExpressions"."AtrributeEventID" = "AtrributeEvent"."EventID"
+	left join "dbo"."CB_QueryTemplate" "Template" on "CB_TestExpressions"."TemplateID" = "Template"."TemplateID"
+</text>
+      </command>
+      <command id="TestExpressionIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="TestExpressionID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="TestID" type="Int32" allowNulls="false" label="Test#" showInSummary="true">
+        <items style="Lookup" dataController="CB_Tests" newDataView="createForm1" />
+      </field>
+      <field name="TestTestName" type="String" readOnly="true" label="Test Name" length="20" />
+      <field name="TestExpressionID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Test Expression#" readOnly="true" />
+      <field name="ParentTestExpressionID" type="Int32" label="Parent Test Expression#" showInSummary="true">
+        <items style="Lookup" dataController="CB_TestExpressions" newDataView="createForm1" />
+      </field>
+      <field name="ParentTestExpressionJoinCriteria" type="String" readOnly="true" label="Parent Test Expression Join Criteria" length="20" />
+      <field name="ParentTestExpressionLeftDataElementDataElementName" type="String" readOnly="true" label="Parent Test Expression Left Data Element Name" length="20" />
+      <field name="ParentTestExpressionLeftDataElementEventName" type="String" readOnly="true" label="Parent Test Expression Left Data Element Event Name" length="20" />
+      <field name="ParentTestExpressionRightDataElementDataElementName" type="String" readOnly="true" label="Parent Test Expression Right Data Element Name" length="20" />
+      <field name="ParentTestExpressionRightDataElementEventName" type="String" readOnly="true" label="Parent Test Expression Right Data Element Event Name" length="20" />
+      <field name="ParentTestExpressionOperatorCode" type="String" readOnly="true" label="Parent Test Expression Operator Code" length="20" />
+      <field name="ParentTestExpressionTemplateTemplateName" type="String" readOnly="true" label="Parent Test Expression Template Name" length="20" />
+      <field name="ParentTestExpressionTestTestName" type="String" readOnly="true" label="Parent Test Expression Test Name" length="20" />
+      <field name="ParentTestExpressionAtrributeEventAttributeID" type="String" readOnly="true" label="Parent Test Expression Atrribute Event Attribute#" length="20" />
+      <field name="ParentTestExpressionLeftEventName" type="String" readOnly="true" label="Parent Test Expression Left Event Name" length="20" />
+      <field name="ParentTestExpressionLeftEventEventTypeEventType" type="String" readOnly="true" label="Parent Test Expression Left Event Type" length="20" />
+      <field name="ParentTestExpressionLeftEventLogSourceCode" type="String" readOnly="true" label="Parent Test Expression Left Event Log Source Code" length="20" />
+      <field name="ParentTestExpressionLeftEventTimeSourceCode" type="String" readOnly="true" label="Parent Test Expression Left Event Time Source Code" length="20" />
+      <field name="ParentTestExpressionRightEventName" type="String" readOnly="true" label="Parent Test Expression Right Event Name" length="20" />
+      <field name="ParentTestExpressionRightEventEventTypeEventType" type="String" readOnly="true" label="Parent Test Expression Right Event Type" length="20" />
+      <field name="ParentTestExpressionRightEventLogSourceCode" type="String" readOnly="true" label="Parent Test Expression Right Event Log Source Code" length="20" />
+      <field name="ParentTestExpressionRightEventTimeSourceCode" type="String" readOnly="true" label="Parent Test Expression Right Event Time Source Code" length="20" />
+      <field name="LeftEventID" type="Int32" allowNulls="false" label="Left Event#" showInSummary="true">
+        <items style="Lookup" dataController="DIM_Events" newDataView="createForm1" />
+      </field>
+      <field name="LeftEventName" type="String" readOnly="true" label="Left Event Name" length="20" />
+      <field name="LeftEventEventTypeEventType" type="String" readOnly="true" label="Left Event Type" length="20" />
+      <field name="LeftEventLogSourceCode" type="String" readOnly="true" label="Left Event Log Source Code" length="20" />
+      <field name="LeftEventTimeSourceCode" type="String" readOnly="true" label="Left Event Time Source Code" length="20" />
+      <field name="LeftDataElementID" type="Int32" label="Left Data Element#" showInSummary="true">
+        <items style="Lookup" dataController="CB_DataElement" newDataView="createForm1" />
+      </field>
+      <field name="LeftDataElementDataElementName" type="String" readOnly="true" label="Left Data Element Name" length="20" />
+      <field name="LeftDataElementEventName" type="String" readOnly="true" label="Left Data Element Event Name" length="20" />
+      <field name="LeftDataElementEventEventTypeEventType" type="String" readOnly="true" label="Left Data Element Event Type" length="20" />
+      <field name="LeftDataElementEventLogSourceCode" type="String" readOnly="true" label="Left Data Element Event Log Source Code" length="20" />
+      <field name="LeftDataElementEventTimeSourceCode" type="String" readOnly="true" label="Left Data Element Event Time Source Code" length="20" />
+      <field name="OperatorID" type="Int32" allowNulls="false" label="Operator#" showInSummary="true">
+        <items style="Lookup" dataController="CB_ExpressionOperator" newDataView="createForm1" />
+      </field>
+      <field name="OperatorCode" type="String" readOnly="true" label="Operator Code" length="20" />
+      <field name="RightEventID" type="Int32" label="Right Event#">
+        <items style="Lookup" dataController="DIM_Events" newDataView="createForm1" />
+      </field>
+      <field name="RightEventName" type="String" readOnly="true" label="Right Event Name" length="20" />
+      <field name="RightEventEventTypeEventType" type="String" readOnly="true" label="Right Event Type" length="20" />
+      <field name="RightEventLogSourceCode" type="String" readOnly="true" label="Right Event Log Source Code" length="20" />
+      <field name="RightEventTimeSourceCode" type="String" readOnly="true" label="Right Event Time Source Code" length="20" />
+      <field name="RightDataElementID" type="Int32" label="Right Data Element#">
+        <items style="Lookup" dataController="CB_DataElement" newDataView="createForm1" />
+      </field>
+      <field name="RightDataElementDataElementName" type="String" readOnly="true" label="Right Data Element Name" length="20" />
+      <field name="RightDataElementEventName" type="String" readOnly="true" label="Right Data Element Event Name" length="20" />
+      <field name="RightDataElementEventEventTypeEventType" type="String" readOnly="true" label="Right Data Element Event Type" length="20" />
+      <field name="RightDataElementEventLogSourceCode" type="String" readOnly="true" label="Right Data Element Event Log Source Code" length="20" />
+      <field name="RightDataElementEventTimeSourceCode" type="String" readOnly="true" label="Right Data Element Event Time Source Code" length="20" />
+      <field name="StartDateRange" type="DateTime" label="Start Date Range" />
+      <field name="EndDateRange" type="DateTime" label="End Date Range" />
+      <field name="OrderSeq" type="Int32" allowNulls="false" default="((0))" label="Order Seq" />
+      <field name="AtrributeEventID" type="Int32" label="Atrribute Event#">
+        <items style="Lookup" dataController="Dim_EventAttribute" newDataView="createForm1" />
+      </field>
+      <field name="AtrributeEventAttributeID" type="String" readOnly="true" label="Atrribute Event Attribute#" length="20" />
+      <field name="Weight" type="Decimal" label="Weight" />
+      <field name="Threshold" type="Decimal" label="Threshold" />
+      <field name="TemplateID" type="Int32" allowNulls="false" label="Template#">
+        <items style="Lookup" dataController="CB_QueryTemplate" newDataView="createForm1" />
+      </field>
+      <field name="TemplateTemplateName" type="String" readOnly="true" label="Template Name" length="20" />
+      <field name="JoinCriteria" type="String" label="Join Criteria" length="20" />
+      <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" />
+      <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="CB Test Expressions">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="TestID" aliasFieldName="TestTestName" />
+          <dataField fieldName="ParentTestExpressionID" aliasFieldName="ParentTestExpressionJoinCriteria" />
+          <dataField fieldName="LeftEventID" aliasFieldName="LeftEventName" />
+          <dataField fieldName="LeftDataElementID" aliasFieldName="LeftDataElementDataElementName" />
+          <dataField fieldName="OperatorID" aliasFieldName="OperatorCode" />
+          <dataField fieldName="RightEventID" aliasFieldName="RightEventName" />
+          <dataField fieldName="RightDataElementID" aliasFieldName="RightDataElementDataElementName" />
+          <dataField fieldName="StartDateRange" columns="10" />
+          <dataField fieldName="EndDateRange" columns="10" />
+          <dataField fieldName="OrderSeq" columns="15" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review CB Test Expressions">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="CB Test Expressions">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="TestID" aliasFieldName="TestTestName" />
+              <dataField fieldName="ParentTestExpressionID" aliasFieldName="ParentTestExpressionJoinCriteria" />
+              <dataField fieldName="LeftEventID" aliasFieldName="LeftEventName" />
+              <dataField fieldName="LeftDataElementID" aliasFieldName="LeftDataElementDataElementName" />
+              <dataField fieldName="OperatorID" aliasFieldName="OperatorCode" />
+              <dataField fieldName="RightEventID" aliasFieldName="RightEventName" />
+              <dataField fieldName="RightDataElementID" aliasFieldName="RightDataElementDataElementName" />
+              <dataField fieldName="StartDateRange" columns="10" />
+              <dataField fieldName="EndDateRange" columns="10" />
+              <dataField fieldName="OrderSeq" columns="15" />
+              <dataField fieldName="AtrributeEventID" aliasFieldName="AtrributeEventAttributeID" />
+              <dataField fieldName="Weight" columns="15" />
+              <dataField fieldName="Threshold" columns="15" />
+              <dataField fieldName="TemplateID" aliasFieldName="TemplateTemplateName" />
+              <dataField fieldName="JoinCriteria" columns="20" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+          <category id="c2" headerText="Reference Information">
+            <description>$DefaultReferenceDescription</description>
+            <dataFields>
+              <dataField fieldName="ParentTestExpressionLeftDataElementDataElementName" columns="20" />
+              <dataField fieldName="ParentTestExpressionLeftDataElementEventName" columns="20" />
+              <dataField fieldName="ParentTestExpressionRightDataElementDataElementName" columns="20" />
+              <dataField fieldName="ParentTestExpressionRightDataElementEventName" columns="20" />
+              <dataField fieldName="ParentTestExpressionOperatorCode" columns="20" />
+              <dataField fieldName="ParentTestExpressionTemplateTemplateName" columns="20" />
+              <dataField fieldName="ParentTestExpressionTestTestName" columns="20" />
+              <dataField fieldName="ParentTestExpressionAtrributeEventAttributeID" columns="20" />
+              <dataField fieldName="ParentTestExpressionLeftEventName" columns="20" />
+              <dataField fieldName="ParentTestExpressionLeftEventEventTypeEventType" columns="20" />
+              <dataField fieldName="ParentTestExpressionLeftEventLogSourceCode" columns="20" />
+              <dataField fieldName="ParentTestExpressionLeftEventTimeSourceCode" columns="20" />
+              <dataField fieldName="ParentTestExpressionRightEventName" columns="20" />
+              <dataField fieldName="ParentTestExpressionRightEventEventTypeEventType" columns="20" />
+              <dataField fieldName="ParentTestExpressionRightEventLogSourceCode" columns="20" />
+              <dataField fieldName="ParentTestExpressionRightEventTimeSourceCode" columns="20" />
+              <dataField fieldName="LeftEventEventTypeEventType" columns="20" />
+              <dataField fieldName="LeftEventLogSourceCode" columns="20" />
+              <dataField fieldName="LeftEventTimeSourceCode" columns="20" />
+              <dataField fieldName="LeftDataElementEventName" columns="20" />
+              <dataField fieldName="LeftDataElementEventEventTypeEventType" columns="20" />
+              <dataField fieldName="LeftDataElementEventLogSourceCode" columns="20" />
+              <dataField fieldName="LeftDataElementEventTimeSourceCode" columns="20" />
+              <dataField fieldName="RightEventEventTypeEventType" columns="20" />
+              <dataField fieldName="RightEventLogSourceCode" columns="20" />
+              <dataField fieldName="RightEventTimeSourceCode" columns="20" />
+              <dataField fieldName="RightDataElementEventName" columns="20" />
+              <dataField fieldName="RightDataElementEventEventTypeEventType" columns="20" />
+              <dataField fieldName="RightDataElementEventLogSourceCode" columns="20" />
+              <dataField fieldName="RightDataElementEventTimeSourceCode" columns="20" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New CB Test Expressions">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New CB Test Expressions">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="TestID" aliasFieldName="TestTestName" />
+              <dataField fieldName="ParentTestExpressionID" aliasFieldName="ParentTestExpressionJoinCriteria" />
+              <dataField fieldName="LeftEventID" aliasFieldName="LeftEventName" />
+              <dataField fieldName="LeftDataElementID" aliasFieldName="LeftDataElementDataElementName" />
+              <dataField fieldName="OperatorID" aliasFieldName="OperatorCode" />
+              <dataField fieldName="RightEventID" aliasFieldName="RightEventName" />
+              <dataField fieldName="RightDataElementID" aliasFieldName="RightDataElementDataElementName" />
+              <dataField fieldName="StartDateRange" columns="10" />
+              <dataField fieldName="EndDateRange" columns="10" />
+              <dataField fieldName="OrderSeq" columns="15" />
+              <dataField fieldName="AtrributeEventID" aliasFieldName="AtrributeEventAttributeID" />
+              <dataField fieldName="Weight" columns="15" />
+              <dataField fieldName="Threshold" columns="15" />
+              <dataField fieldName="TemplateID" aliasFieldName="TemplateTemplateName" />
+              <dataField fieldName="JoinCriteria" columns="20" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="CB_TestPopulation" conflictDetection="overwriteChanges" label="CB Test Population" nativeSchema="dbo" nativeTableName="CB_TestPopulation">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"CB_TestPopulation"."TestPopulationID" "TestPopulationID"
+	,"CB_TestPopulation"."TestID" "TestID"
+	,"Test"."TestName" "TestTestName"
+	,"CB_TestPopulation"."PersonOrGroup" "PersonOrGroup"
+	,"CB_TestPopulation"."PeopleID" "PeopleID"
+	,"People"."Name" "PeopleName"
+	,"CB_TestPopulation"."GroupID" "GroupID"
+	,"Group"."GroupCode" "GroupGroupCode"
+	,"CB_TestPopulation"."IsPass" "IsPass"
+	,"CB_TestPopulation"."DateCreated" "DateCreated"
+	,"CB_TestPopulation"."DateModified" "DateModified"
+from "dbo"."CB_TestPopulation" "CB_TestPopulation"
+	left join "dbo"."CB_Tests" "Test" on "CB_TestPopulation"."TestID" = "Test"."TestID"
+	left join "dbo"."DIM_People" "People" on "CB_TestPopulation"."PeopleID" = "People"."PeopleID"
+	left join "dbo"."LU_Groups" "Group" on "CB_TestPopulation"."GroupID" = "Group"."GroupID"
+</text>
+      </command>
+      <command id="TestPopulationIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="TestPopulationID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="TestPopulationID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Test Population#" readOnly="true" />
+      <field name="TestID" type="Int32" label="Test#" showInSummary="true">
+        <items style="Lookup" dataController="CB_Tests" newDataView="createForm1" />
+      </field>
+      <field name="TestTestName" type="String" readOnly="true" label="Test Name" length="20" />
+      <field name="PersonOrGroup" type="Boolean" allowNulls="false" label="Person Or Group" showInSummary="true" />
+      <field name="PeopleID" type="Int32" label="People#" showInSummary="true">
+        <items style="Lookup" dataController="DIM_People" newDataView="createForm1" />
+      </field>
+      <field name="PeopleName" type="String" readOnly="true" label="People Name" length="40" />
+      <field name="GroupID" type="Int32" label="Group#" showInSummary="true">
+        <items style="Lookup" dataController="LU_Groups" newDataView="createForm1" />
+      </field>
+      <field name="GroupGroupCode" type="String" readOnly="true" label="Group Code" length="20" />
+      <field name="IsPass" type="Boolean" label="Is Pass" showInSummary="true" />
+      <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" />
+      <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="CB Test Population">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="PersonOrGroup" />
+          <dataField fieldName="TestID" aliasFieldName="TestTestName" />
+          <dataField fieldName="PeopleID" aliasFieldName="PeopleName" />
+          <dataField fieldName="GroupID" aliasFieldName="GroupGroupCode" />
+          <dataField fieldName="IsPass" />
+          <dataField fieldName="DateCreated" columns="10" />
+          <dataField fieldName="DateModified" columns="10" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review CB Test Population">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="CB Test Population">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="TestID" aliasFieldName="TestTestName" />
+              <dataField fieldName="PersonOrGroup" />
+              <dataField fieldName="PeopleID" aliasFieldName="PeopleName" />
+              <dataField fieldName="GroupID" aliasFieldName="GroupGroupCode" />
+              <dataField fieldName="IsPass" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New CB Test Population">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New CB Test Population">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="TestID" aliasFieldName="TestTestName" />
+              <dataField fieldName="PersonOrGroup" />
+              <dataField fieldName="PeopleID" aliasFieldName="PeopleName" />
+              <dataField fieldName="GroupID" aliasFieldName="GroupGroupCode" />
+              <dataField fieldName="IsPass" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="CB_Tests" conflictDetection="overwriteChanges" label="CB Tests" nativeSchema="dbo" nativeTableName="CB_Tests">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"CB_Tests"."TestID" "TestID"
+	,"CB_Tests"."TestName" "TestName"
+	,"CB_Tests"."TestDescription" "TestDescription"
+	,"CB_Tests"."AppendToLog" "AppendToLog"
+	,"CB_Tests"."LastRunDate" "LastRunDate"
+	,"CB_Tests"."LastRunBy" "LastRunBy"
+	,"CB_Tests"."DateCreated" "DateCreated"
+	,"CB_Tests"."DateModified" "DateModified"
+from "dbo"."CB_Tests" "CB_Tests"
+</text>
+      </command>
+      <command id="TestIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="TestID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="TestID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Test#" readOnly="true" />
+      <field name="TestName" type="String" allowNulls="false" label="Test Name" length="20" showInSummary="true" />
+      <field name="TestDescription" type="String" label="Test Description" length="500" showInSummary="true" />
+      <field name="AppendToLog" type="Boolean" label="Append To Log" showInSummary="true" />
+      <field name="LastRunDate" type="DateTime" label="Last Run Date" showInSummary="true" />
+      <field name="LastRunBy" type="String" label="Last Run By" length="20" showInSummary="true" />
+      <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" />
+      <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="CB Tests">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="TestName" columns="20" />
+          <dataField fieldName="TestDescription" />
+          <dataField fieldName="AppendToLog" />
+          <dataField fieldName="LastRunDate" columns="10" />
+          <dataField fieldName="LastRunBy" columns="20" />
+          <dataField fieldName="DateCreated" columns="10" />
+          <dataField fieldName="DateModified" columns="10" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review CB Tests">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="CB Tests">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="TestName" columns="20" />
+              <dataField fieldName="TestDescription" />
+              <dataField fieldName="AppendToLog" />
+              <dataField fieldName="LastRunDate" columns="10" />
+              <dataField fieldName="LastRunBy" columns="20" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New CB Tests">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New CB Tests">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="TestName" columns="20" />
+              <dataField fieldName="TestDescription" />
+              <dataField fieldName="AppendToLog" />
+              <dataField fieldName="LastRunDate" columns="10" />
+              <dataField fieldName="LastRunBy" columns="20" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="Dim_EventAttribute" conflictDetection="overwriteChanges" label="Dim Event Attribute" nativeSchema="dbo" nativeTableName="Dim_EventAttribute">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"Dim_EventAttribute"."EventID" "EventID"
+	,"Dim_EventAttribute"."AttributeID" "AttributeID"
+	,"Dim_EventAttribute"."Code" "Code"
+from "dbo"."Dim_EventAttribute" "Dim_EventAttribute"
+</text>
+      </command>
+      <command id="EventIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="EventID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="EventID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Event#" readOnly="true" />
+      <field name="AttributeID" type="String" label="Attribute#" length="20" showInSummary="true" />
+      <field name="Code" type="String" label="Code" length="20" showInSummary="true" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="Dim Event Attribute">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="AttributeID" columns="20" />
+          <dataField fieldName="Code" columns="20" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review Dim Event Attribute">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="Dim Event Attribute">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="AttributeID" columns="20" />
+              <dataField fieldName="Code" columns="20" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New Dim Event Attribute">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New Dim Event Attribute">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="AttributeID" columns="20" />
+              <dataField fieldName="Code" columns="20" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="DIM_Events" conflictDetection="overwriteChanges" label="DIM Events" nativeSchema="dbo" nativeTableName="DIM_Events">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"DIM_Events"."EventID" "EventID"
+	,"DIM_Events"."Name" "Name"
+	,"DIM_Events"."EventTypeID" "EventTypeID"
+	,"EventType"."EventType" "EventTypeEventType"
+	,"DIM_Events"."IsActive" "IsActive"
+	,"DIM_Events"."LogSourceID" "LogSourceID"
+	,"LogSource"."Code" "LogSourceCode"
+	,"DIM_Events"."Description" "Description"
+	,"DIM_Events"."Granularity" "Granularity"
+	,"DIM_Events"."TimeSourceID" "TimeSourceID"
+	,"TimeSource"."Code" "TimeSourceCode"
+	,"DIM_Events"."ServerUTCOffset" "ServerUTCOffset"
+from "dbo"."DIM_Events" "DIM_Events"
+	left join "dbo"."LU_EventTypes" "EventType" on "DIM_Events"."EventTypeID" = "EventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "LogSource" on "DIM_Events"."LogSourceID" = "LogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "TimeSource" on "DIM_Events"."TimeSourceID" = "TimeSource"."TimeSourceID"
+</text>
+      </command>
+      <command id="EventIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="EventID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="EventID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Event#" readOnly="true" />
+      <field name="Name" type="String" allowNulls="false" label="Name" length="20" showInSummary="true" />
+      <field name="EventTypeID" type="Int32" allowNulls="false" label="Event Type#" showInSummary="true">
+        <items style="Lookup" dataController="LU_EventTypes" newDataView="createForm1" />
+      </field>
+      <field name="EventTypeEventType" type="String" readOnly="true" label="Event Type" length="20" />
+      <field name="IsActive" type="Boolean" allowNulls="false" label="Is Active" showInSummary="true" />
+      <field name="LogSourceID" type="Int32" allowNulls="false" label="Log Source#" showInSummary="true">
+        <items style="Lookup" dataController="LU_LogSource" newDataView="createForm1" />
+      </field>
+      <field name="LogSourceCode" type="String" readOnly="true" label="Log Source Code" length="20" />
+      <field name="Description" type="String" label="Description" length="500" showInSummary="true" />
+      <field name="Granularity" type="Int64" label="Granularity" />
+      <field name="TimeSourceID" type="Int32" label="Time Source#">
+        <items style="Lookup" dataController="LU_TimeSource" newDataView="createForm1" />
+      </field>
+      <field name="TimeSourceCode" type="String" readOnly="true" label="Time Source Code" length="20" />
+      <field name="ServerUTCOffset" type="Double" default="((0))" label="Server UTC Offset" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="DIM Events">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="Name" columns="20" />
+          <dataField fieldName="EventTypeID" aliasFieldName="EventTypeEventType" />
+          <dataField fieldName="IsActive" />
+          <dataField fieldName="LogSourceID" aliasFieldName="LogSourceCode" />
+          <dataField fieldName="Description" />
+          <dataField fieldName="Granularity" columns="15" />
+          <dataField fieldName="TimeSourceID" aliasFieldName="TimeSourceCode" />
+          <dataField fieldName="ServerUTCOffset" columns="15" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review DIM Events">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="DIM Events">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="Name" columns="20" />
+              <dataField fieldName="EventTypeID" aliasFieldName="EventTypeEventType" />
+              <dataField fieldName="IsActive" />
+              <dataField fieldName="LogSourceID" aliasFieldName="LogSourceCode" />
+              <dataField fieldName="Description" />
+              <dataField fieldName="Granularity" columns="15" />
+              <dataField fieldName="TimeSourceID" aliasFieldName="TimeSourceCode" />
+              <dataField fieldName="ServerUTCOffset" columns="15" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New DIM Events">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New DIM Events">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="Name" columns="20" />
+              <dataField fieldName="EventTypeID" aliasFieldName="EventTypeEventType" />
+              <dataField fieldName="IsActive" />
+              <dataField fieldName="LogSourceID" aliasFieldName="LogSourceCode" />
+              <dataField fieldName="Description" />
+              <dataField fieldName="Granularity" columns="15" />
+              <dataField fieldName="TimeSourceID" aliasFieldName="TimeSourceCode" />
+              <dataField fieldName="ServerUTCOffset" columns="15" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="DIM_Objects" conflictDetection="overwriteChanges" label="DIM Objects" nativeSchema="dbo" nativeTableName="DIM_Objects">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"DIM_Objects"."ObjectID" "ObjectID"
+	,"DIM_Objects"."ObjectName" "ObjectName"
+	,"DIM_Objects"."ObjectDescription" "ObjectDescription"
+	,"DIM_Objects"."ObjectTypeID" "ObjectTypeID"
+	,"ObjectType"."Code" "ObjectTypeCode"
+	,"DIM_Objects"."UTCOffset" "UTCOffset"
+	,"DIM_Objects"."IsActive" "IsActive"
+from "dbo"."DIM_Objects" "DIM_Objects"
+	left join "dbo"."LU_ObjectType" "ObjectType" on "DIM_Objects"."ObjectTypeID" = "ObjectType"."ObjectTypeID"
+</text>
+      </command>
+      <command id="ObjectIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="ObjectID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="ObjectID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Object#" readOnly="true" />
+      <field name="ObjectName" type="String" allowNulls="false" label="Object Name" length="20" showInSummary="true" />
+      <field name="ObjectDescription" type="String" label="Object Description" length="500" showInSummary="true" />
+      <field name="ObjectTypeID" type="Int32" allowNulls="false" label="Object Type#" showInSummary="true">
+        <items style="Lookup" dataController="LU_ObjectType" newDataView="createForm1" />
+      </field>
+      <field name="ObjectTypeCode" type="String" readOnly="true" label="Object Type Code" length="20" />
+      <field name="UTCOffset" type="Double" label="UTC Offset" showInSummary="true" />
+      <field name="IsActive" type="Boolean" default="((1))" label="Is Active" showInSummary="true" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="DIM Objects">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="ObjectName" columns="20" />
+          <dataField fieldName="ObjectDescription" />
+          <dataField fieldName="ObjectTypeID" aliasFieldName="ObjectTypeCode" />
+          <dataField fieldName="UTCOffset" columns="15" />
+          <dataField fieldName="IsActive" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review DIM Objects">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="DIM Objects">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="ObjectName" columns="20" />
+              <dataField fieldName="ObjectDescription" />
+              <dataField fieldName="ObjectTypeID" aliasFieldName="ObjectTypeCode" />
+              <dataField fieldName="UTCOffset" columns="15" />
+              <dataField fieldName="IsActive" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New DIM Objects">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New DIM Objects">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="ObjectName" columns="20" />
+              <dataField fieldName="ObjectDescription" />
+              <dataField fieldName="ObjectTypeID" aliasFieldName="ObjectTypeCode" />
+              <dataField fieldName="UTCOffset" columns="15" />
+              <dataField fieldName="IsActive" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="DIM_People" conflictDetection="overwriteChanges" label="DIM People" nativeSchema="dbo" nativeTableName="DIM_People">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"DIM_People"."PeopleID" "PeopleID"
+	,"DIM_People"."Name" "Name"
+	,"DIM_People"."Priority" "Priority"
+	,"DIM_People"."StartDate" "StartDate"
+	,"DIM_People"."EndDate" "EndDate"
+	,"DIM_People"."UTCOffset" "UTCOffset"
+	,"DIM_People"."ObservesDST" "ObservesDST"
+	,"DIM_People"."Notes" "Notes"
+from "dbo"."DIM_People" "DIM_People"
+</text>
+      </command>
+      <command id="PeopleIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="PeopleID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="PeopleID" type="Int32" allowNulls="false" isPrimaryKey="true" label="People#" readOnly="true" />
+      <field name="Name" type="String" allowNulls="false" label="Name" length="40" showInSummary="true" />
+      <field name="Priority" type="Int32" allowNulls="false" default="((0))" label="Priority" showInSummary="true" />
+      <field name="StartDate" type="DateTime" label="Start Date" showInSummary="true" />
+      <field name="EndDate" type="DateTime" label="End Date" showInSummary="true" />
+      <field name="UTCOffset" type="Double" default="((0))" label="UTC Offset" showInSummary="true" />
+      <field name="ObservesDST" type="Boolean" allowNulls="false" default="((0))" label="Observes DST" />
+      <field name="Notes" type="String" label="Notes" length="40" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="DIM People">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="Name" columns="40" />
+          <dataField fieldName="Priority" columns="15" />
+          <dataField fieldName="StartDate" columns="10" />
+          <dataField fieldName="EndDate" columns="10" />
+          <dataField fieldName="UTCOffset" columns="15" />
+          <dataField fieldName="ObservesDST" />
+          <dataField fieldName="Notes" columns="40" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review DIM People">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="DIM People">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="Name" columns="40" />
+              <dataField fieldName="Priority" columns="15" />
+              <dataField fieldName="StartDate" columns="10" />
+              <dataField fieldName="EndDate" columns="10" />
+              <dataField fieldName="UTCOffset" columns="15" />
+              <dataField fieldName="ObservesDST" />
+              <dataField fieldName="Notes" columns="40" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New DIM People">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New DIM People">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="Name" columns="40" />
+              <dataField fieldName="Priority" columns="15" />
+              <dataField fieldName="StartDate" columns="10" />
+              <dataField fieldName="EndDate" columns="10" />
+              <dataField fieldName="UTCOffset" columns="15" />
+              <dataField fieldName="ObservesDST" />
+              <dataField fieldName="Notes" columns="40" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="Groups_People" conflictDetection="overwriteChanges" label="Groups People" nativeSchema="dbo" nativeTableName="Groups_People">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"Groups_People"."GroupID" "GroupID"
+	,"Group"."GroupCode" "GroupGroupCode"
+	,"Groups_People"."PeopleID" "PeopleID"
+	,"People"."Name" "PeopleName"
+	,"Groups_People"."DateCreated" "DateCreated"
+	,"Groups_People"."DateModified" "DateModified"
+from "dbo"."Groups_People" "Groups_People"
+	left join "dbo"."LU_Groups" "Group" on "Groups_People"."GroupID" = "Group"."GroupID"
+	left join "dbo"."DIM_People" "People" on "Groups_People"."PeopleID" = "People"."PeopleID"
+</text>
+      </command>
+    </commands>
+    <fields>
+      <field name="GroupID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Group#" showInSummary="true">
+        <items style="Lookup" dataController="LU_Groups" newDataView="createForm1" />
+      </field>
+      <field name="GroupGroupCode" type="String" readOnly="true" label="Group Code" length="20" />
+      <field name="PeopleID" type="Int32" allowNulls="false" isPrimaryKey="true" label="People#" showInSummary="true">
+        <items style="Lookup" dataController="DIM_People" newDataView="createForm1" />
+      </field>
+      <field name="PeopleName" type="String" readOnly="true" label="People Name" length="40" />
+      <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" showInSummary="true" />
+      <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" showInSummary="true" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="Groups People">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="GroupID" aliasFieldName="GroupGroupCode" />
+          <dataField fieldName="PeopleID" aliasFieldName="PeopleName" />
+          <dataField fieldName="DateCreated" columns="10" />
+          <dataField fieldName="DateModified" columns="10" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review Groups People">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="Groups People">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="GroupID" aliasFieldName="GroupGroupCode" />
+              <dataField fieldName="PeopleID" aliasFieldName="PeopleName" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New Groups People">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New Groups People">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="GroupID" aliasFieldName="GroupGroupCode" />
+              <dataField fieldName="PeopleID" aliasFieldName="PeopleName" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="LU_EventTypes" conflictDetection="overwriteChanges" label="LU Event Types" nativeSchema="dbo" nativeTableName="LU_EventTypes">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"LU_EventTypes"."EventTypeID" "EventTypeID"
+	,"LU_EventTypes"."EventType" "EventType"
+	,"LU_EventTypes"."Name" "Name"
+	,"LU_EventTypes"."DateCreated" "DateCreated"
+	,"LU_EventTypes"."DateModified" "DateModified"
+from "dbo"."LU_EventTypes" "LU_EventTypes"
+</text>
+      </command>
+      <command id="EventTypeIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="EventTypeID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="EventTypeID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Event Type#" readOnly="true" />
+      <field name="EventType" type="String" allowNulls="false" label="Event Type" length="20" showInSummary="true" />
+      <field name="Name" type="String" allowNulls="false" label="Name" length="20" showInSummary="true" />
+      <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" showInSummary="true" />
+      <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" showInSummary="true" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="LU Event Types">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="EventType" columns="20" />
+          <dataField fieldName="Name" columns="20" />
+          <dataField fieldName="DateCreated" columns="10" />
+          <dataField fieldName="DateModified" columns="10" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review LU Event Types">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="LU Event Types">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="EventType" columns="20" />
+              <dataField fieldName="Name" columns="20" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New LU Event Types">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New LU Event Types">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="EventType" columns="20" />
+              <dataField fieldName="Name" columns="20" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="LU_Groups" conflictDetection="overwriteChanges" label="LU Groups" nativeSchema="dbo" nativeTableName="LU_Groups">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"LU_Groups"."GroupID" "GroupID"
+	,"LU_Groups"."GroupCode" "GroupCode"
+	,"LU_Groups"."GroupName" "GroupName"
+	,"LU_Groups"."Notes" "Notes"
+	,"LU_Groups"."DateCreated" "DateCreated"
+	,"LU_Groups"."DateModified" "DateModified"
+from "dbo"."LU_Groups" "LU_Groups"
+</text>
+      </command>
+      <command id="GroupIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="GroupID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="GroupID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Group#" readOnly="true" />
+      <field name="GroupCode" type="String" allowNulls="false" label="Group Code" length="20" showInSummary="true" />
+      <field name="GroupName" type="String" label="Group Name" length="20" showInSummary="true" />
+      <field name="Notes" type="String" label="Notes" length="500" showInSummary="true" />
+      <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" showInSummary="true" />
+      <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" showInSummary="true" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="LU Groups">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="GroupCode" columns="20" />
+          <dataField fieldName="GroupName" columns="20" />
+          <dataField fieldName="Notes" />
+          <dataField fieldName="DateCreated" columns="10" />
+          <dataField fieldName="DateModified" columns="10" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review LU Groups">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="LU Groups">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="GroupCode" columns="20" />
+              <dataField fieldName="GroupName" columns="20" />
+              <dataField fieldName="Notes" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New LU Groups">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New LU Groups">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="GroupCode" columns="20" />
+              <dataField fieldName="GroupName" columns="20" />
+              <dataField fieldName="Notes" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="LU_LogSource" conflictDetection="overwriteChanges" label="LU Log Source" nativeSchema="dbo" nativeTableName="LU_LogSource">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"LU_LogSource"."LogSourceID" "LogSourceID"
+	,"LU_LogSource"."Code" "Code"
+	,"LU_LogSource"."DateCreated" "DateCreated"
+	,"LU_LogSource"."DateModified" "DateModified"
+from "dbo"."LU_LogSource" "LU_LogSource"
+</text>
+      </command>
+      <command id="LogSourceIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="LogSourceID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="LogSourceID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Log Source#" readOnly="true" />
+      <field name="Code" type="String" allowNulls="false" label="Code" length="20" showInSummary="true" />
+      <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" showInSummary="true" />
+      <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" showInSummary="true" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="LU Log Source">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="Code" columns="20" />
+          <dataField fieldName="DateCreated" columns="10" />
+          <dataField fieldName="DateModified" columns="10" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review LU Log Source">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="LU Log Source">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="Code" columns="20" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New LU Log Source">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New LU Log Source">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="Code" columns="20" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="LU_ObjectType" conflictDetection="overwriteChanges" label="LU Object Type" nativeSchema="dbo" nativeTableName="LU_ObjectType">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"LU_ObjectType"."ObjectTypeID" "ObjectTypeID"
+	,"LU_ObjectType"."Code" "Code"
+	,"LU_ObjectType"."DateCreated" "DateCreated"
+	,"LU_ObjectType"."DateModified" "DateModified"
+from "dbo"."LU_ObjectType" "LU_ObjectType"
+</text>
+      </command>
+      <command id="ObjectTypeIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="ObjectTypeID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="ObjectTypeID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Object Type#" readOnly="true" />
+      <field name="Code" type="String" allowNulls="false" label="Code" length="20" showInSummary="true" />
+      <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" showInSummary="true" />
+      <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" showInSummary="true" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="LU Object Type">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="Code" columns="20" />
+          <dataField fieldName="DateCreated" columns="10" />
+          <dataField fieldName="DateModified" columns="10" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review LU Object Type">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="LU Object Type">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="Code" columns="20" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New LU Object Type">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New LU Object Type">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="Code" columns="20" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="LU_TimeSource" conflictDetection="overwriteChanges" label="LU Time Source" nativeSchema="dbo" nativeTableName="LU_TimeSource">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"LU_TimeSource"."TimeSourceID" "TimeSourceID"
+	,"LU_TimeSource"."Code" "Code"
+	,"LU_TimeSource"."DateCreated" "DateCreated"
+	,"LU_TimeSource"."DateModified" "DateModified"
+from "dbo"."LU_TimeSource" "LU_TimeSource"
+</text>
+      </command>
+      <command id="TimeSourceIDIdentityCommand" type="Text" event="Inserted">
+        <text>select @@identity</text>
+        <output>
+          <fieldOutput fieldName="TimeSourceID" />
+        </output>
+      </command>
+    </commands>
+    <fields>
+      <field name="TimeSourceID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Time Source#" readOnly="true" />
+      <field name="Code" type="String" allowNulls="false" label="Code" length="20" showInSummary="true" />
+      <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" showInSummary="true" />
+      <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" showInSummary="true" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="LU Time Source">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="Code" columns="20" />
+          <dataField fieldName="DateCreated" columns="10" />
+          <dataField fieldName="DateModified" columns="10" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review LU Time Source">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="LU Time Source">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="Code" columns="20" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New LU Time Source">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New LU Time Source">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="Code" columns="20" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+  <dataController name="People_Objects" conflictDetection="overwriteChanges" label="People Objects" nativeSchema="dbo" nativeTableName="People_Objects">
+    <commands>
+      <command id="command1" type="Text">
+        <text>
+select
+	"People_Objects"."PeopleID" "PeopleID"
+	,"People"."Name" "PeopleName"
+	,"People_Objects"."ObjectID" "ObjectID"
+	,"Object"."ObjectName" "ObjectObjectName"
+	,"ObjectObjectType"."Code" "ObjectObjectTypeCode"
+	,"People_Objects"."DateCreated" "DateCreated"
+	,"People_Objects"."DateModified" "DateModified"
+from "dbo"."People_Objects" "People_Objects"
+	left join "dbo"."DIM_People" "People" on "People_Objects"."PeopleID" = "People"."PeopleID"
+	left join "dbo"."DIM_Objects" "Object" on "People_Objects"."ObjectID" = "Object"."ObjectID"
+	left join "dbo"."LU_ObjectType" "ObjectObjectType" on "Object"."ObjectTypeID" = "ObjectObjectType"."ObjectTypeID"
+</text>
+      </command>
+    </commands>
+    <fields>
+      <field name="PeopleID" type="Int32" allowNulls="false" isPrimaryKey="true" label="People#" showInSummary="true">
+        <items style="Lookup" dataController="DIM_People" newDataView="createForm1" />
+      </field>
+      <field name="PeopleName" type="String" readOnly="true" label="People Name" length="40" />
+      <field name="ObjectID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Object#" showInSummary="true">
+        <items style="Lookup" dataController="DIM_Objects" newDataView="createForm1" />
+      </field>
+      <field name="ObjectObjectName" type="String" readOnly="true" label="Object Name" length="20" />
+      <field name="ObjectObjectTypeCode" type="String" readOnly="true" label="Object Type Code" length="20" />
+      <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" showInSummary="true" />
+      <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" showInSummary="true" />
+    </fields>
+    <views>
+      <view id="grid1" type="Grid" commandId="command1" label="People Objects">
+        <headerText>$DefaultGridViewDescription</headerText>
+        <dataFields>
+          <dataField fieldName="PeopleID" aliasFieldName="PeopleName" />
+          <dataField fieldName="ObjectID" aliasFieldName="ObjectObjectName" />
+          <dataField fieldName="DateCreated" columns="10" />
+          <dataField fieldName="DateModified" columns="10" />
+          <dataField fieldName="ObjectObjectTypeCode" columns="20" />
+        </dataFields>
+      </view>
+      <view id="editForm1" type="Form" commandId="command1" label="Review People Objects">
+        <headerText>$DefaultEditViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="People Objects">
+            <description>$DefaultEditDescription</description>
+            <dataFields>
+              <dataField fieldName="PeopleID" aliasFieldName="PeopleName" />
+              <dataField fieldName="ObjectID" aliasFieldName="ObjectObjectName" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+          <category id="c2" headerText="Reference Information">
+            <description>$DefaultReferenceDescription</description>
+            <dataFields>
+              <dataField fieldName="ObjectObjectTypeCode" columns="20" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+      <view id="createForm1" type="Form" commandId="command1" label="New People Objects">
+        <headerText>$DefaultCreateViewDescription</headerText>
+        <categories>
+          <category id="c1" headerText="New People Objects">
+            <description>$DefaultNewDescription</description>
+            <dataFields>
+              <dataField fieldName="PeopleID" aliasFieldName="PeopleName" />
+              <dataField fieldName="ObjectID" aliasFieldName="ObjectObjectName" />
+              <dataField fieldName="DateCreated" columns="10" />
+              <dataField fieldName="DateModified" columns="10" />
+            </dataFields>
+          </category>
+        </categories>
+      </view>
+    </views>
+    <actions>
+      <actionGroup id="ag1" scope="Grid">
+        <action id="a1" commandName="Select" commandArgument="editForm1" />
+        <action id="a2" commandName="Edit" />
+        <action id="a3" commandName="Delete" />
+        <action id="a6" />
+        <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+        <action id="a8" commandName="New" commandArgument="grid1" />
+        <action id="a9" />
+        <action id="a10" commandName="BatchEdit" />
+        <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+      </actionGroup>
+      <actionGroup id="ag2" scope="Form">
+        <action id="a1" commandName="Edit" />
+        <action id="a2" commandName="Delete" />
+        <action id="a3" commandName="Cancel" />
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+        <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a7" whenLastCommandName="New" commandName="Insert" />
+        <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+        <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+        <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+        <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+      </actionGroup>
+      <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+        <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+      </actionGroup>
+      <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+        <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+        <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+      </actionGroup>
+      <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+        <action id="a1" commandName="ExportCsv" />
+        <action id="a2" />
+        <action id="a3" commandName="ExportRowset" />
+        <action id="a4" commandName="ExportRss" />
+        <action id="a5" />
+        <action id="a6" commandName="Import" commandArgument="createForm1" />
+        <action id="a7" commandName="DataSheet" />
+        <action id="a8" commandName="Grid" />
+      </actionGroup>
+      <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+        <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a3" whenLastCommandName="New" commandName="Insert" />
+        <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+      </actionGroup>
+      <actionGroup id="ag8" scope="Row">
+        <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+        <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+        <action id="a6" whenLastCommandName="New" commandName="Insert" />
+        <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+        <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+        <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      </actionGroup>
+    </actions>
+  </dataController>
+</dataControllerCollection>

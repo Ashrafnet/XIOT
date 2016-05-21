@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<map xmlns="urn:codeontime:data-map">
+  <node name="DIM_People" refs="3" depth="0" schema="dbo" label="DIM People" schemaLabel="Dbo">
+    <node name="CB_TestPopulation" refs="0" depth="1" schema="dbo" label="CB Test Population" schemaLabel="Dbo" />
+    <node name="Groups_People" refs="0" depth="1" schema="dbo" label="Groups People" schemaLabel="Dbo" />
+    <node name="People_Objects" refs="0" depth="1" schema="dbo" label="People Objects" schemaLabel="Dbo" />
+  </node>
+  <node name="CB_TestExpressions" refs="2" depth="0" schema="dbo" label="CB Test Expressions" schemaLabel="Dbo">
+    <node name="CB_PassFailCriteria" refs="0" depth="1" schema="dbo" label="CB Pass Fail Criteria" schemaLabel="Dbo" />
+  </node>
+  <node name="CB_Tests" refs="2" depth="0" schema="dbo" label="CB Tests" schemaLabel="Dbo" />
+  <node name="DIM_Events" refs="2" depth="0" schema="dbo" label="DIM Events" schemaLabel="Dbo">
+    <node name="CB_DataElement" refs="1" depth="1" schema="dbo" label="CB Data Element" schemaLabel="Dbo" />
+  </node>
+  <node name="LU_Groups" refs="2" depth="0" schema="dbo" label="LU Groups" schemaLabel="Dbo">
+    <node name="CB_ExpressionOperator" refs="1" depth="0" schema="dbo" label="CB Expression Operator" schemaLabel="Dbo" />
+    <node name="CB_QueryTemplate" refs="1" depth="0" schema="dbo" label="CB Query Template" schemaLabel="Dbo" />
+    <node name="CB_TestCriteria" refs="1" depth="0" schema="dbo" label="CB Test Criteria" schemaLabel="Dbo" />
+    <node name="Dim_EventAttribute" refs="1" depth="0" schema="dbo" label="Dim Event Attribute" schemaLabel="Dbo" />
+    <node name="DIM_Objects" refs="1" depth="0" schema="dbo" label="DIM Objects" schemaLabel="Dbo" />
+    <node name="LU_EventTypes" refs="1" depth="0" schema="dbo" label="LU Event Types" schemaLabel="Dbo" />
+    <node name="LU_LogSource" refs="1" depth="0" schema="dbo" label="LU Log Source" schemaLabel="Dbo" />
+    <node name="LU_ObjectType" refs="1" depth="0" schema="dbo" label="LU Object Type" schemaLabel="Dbo" />
+    <node name="LU_TimeSource" refs="1" depth="0" schema="dbo" label="LU Time Source" schemaLabel="Dbo" />
+  </node>
+</map>

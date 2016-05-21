@@ -1,0 +1,11 @@
+<log xmlns="urn:schemas-codeontime-com:xml-builder" xmlns:aquarium="urn:schemas-codeontime-com:data-aquarium" xmlns:app="urn:schemas-codeontime-com:data-aquarium-application" xmlns:a="urn:schemas-codeontime-com:data-aquarium">
+  <c y="Update" t="2016-05-19T18:56:55">
+    <s p="//app:page[@name=$v0]">
+      <v n="v0" v="DIM_Objects" />
+    </s>
+    <d>
+      <f p="@path" v="DIM Objects" />
+      <f p="@style" v="" />
+    </d>
+  </c>
+</log>

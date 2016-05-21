@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 
+  This file is provided to store the settings for your Data Aquarium project. 
+  You can safely delete this file if no further code generation is planned.
+--><project xmlns="urn:schemas-codeontime-com:data-aquarium-project" compatibility="20111118" subscriptionLevel="Unlimited" codeDomProvider="CSharp" targetFramework="4.0">
+  <connectionString hostDatabaseSharing="false">Data Source=(localdb)\ProjectsV12;Initial Catalog=XIOT;Integrated Security=True;</connectionString>
+  <providerName>System.Data.SqlClient</providerName>
+  <namespace>XIOT</namespace>
+  <webServer run="true" port="13947"><webConfig></webConfig></webServer>
+  <features pageHeader="" copyright="" annotations="false" annotationsPath="" newColumn="true" floating="false" maxGridFields="10" multiSelect="false" batchEdit="true" advancedSearch="false" advancedLookup="false" relationshipExplorer="false" enablePermalinks="false" enableHistory="false" enableTransactions="false" showModalForms="true" tabViewSelection="7">
+    <navigation detectUnderscoreSeparatedSchema="false"/>
+  <grid actionColumn="false"/><ease urlHashing="false"><auditing></auditing></ease><packageProperties></packageProperties></features>
+<host path="" url=""/><databaseObjectFilter></databaseObjectFilter><bll discoveryDepth="3" labelFormatExpression="" generate="true" selectMethod="Select" selectSingleMethod="SelectSingle" insertMethod="Insert" updateMethod="Update" deleteMethod="Delete" generateSharedBusinessRules="true" includeViews="true" tabViewSelection="6"><fieldMap></fieldMap><keys></keys><fieldsToIgnore></fieldsToIgnore><fieldsToHide></fieldsToHide><customLabels></customLabels></bll><reports enabled="false"/><membership enabled="false" providerName="System.Data.SqlClient" connectionString="" windowsAuthentication="false" customSecurity="false" dedicatedLogin="false" displayRememberMe="true" rememberMeSet="false" displaySignUp="true" displayPasswordRecovery="true" displayMyAccount="true" displayHelp="true" idleUserDetectionTimeout="-1" tabViewSelection="3"/><globalization uiCulture="en-US" culture="en-US" enableClientBasedCulture="false" supportedCultures="en-US,en-US; " googleTranslateApiKey=""/><layout name="Classic"/><theme name="Aquarium"/></project>

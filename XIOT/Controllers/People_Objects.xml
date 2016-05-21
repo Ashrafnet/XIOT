@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="People_Objects" conflictDetection="overwriteChanges" label="People Objects" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"People_Objects"."PeopleID" "PeopleID"
+	,"People"."Name" "PeopleName"
+	,"People_Objects"."ObjectID" "ObjectID"
+	,"Object"."ObjectName" "ObjectObjectName"
+	,"ObjectObjectType"."Code" "ObjectObjectTypeCode"
+	,"People_Objects"."DateCreated" "DateCreated"
+	,"People_Objects"."DateModified" "DateModified"
+from "dbo"."People_Objects" "People_Objects"
+	left join "dbo"."DIM_People" "People" on "People_Objects"."PeopleID" = "People"."PeopleID"
+	left join "dbo"."DIM_Objects" "Object" on "People_Objects"."ObjectID" = "Object"."ObjectID"
+	left join "dbo"."LU_ObjectType" "ObjectObjectType" on "Object"."ObjectTypeID" = "ObjectObjectType"."ObjectTypeID"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="PeopleID" type="Int32" allowNulls="false" isPrimaryKey="true" label="People#" showInSummary="true">
+      <items style="Lookup" dataController="DIM_People" newDataView="createForm1" />
+    </field>
+    <field name="PeopleName" type="String" readOnly="true" label="People Name" length="40" />
+    <field name="ObjectID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Object#" showInSummary="true">
+      <items style="Lookup" dataController="DIM_Objects" newDataView="createForm1" />
+    </field>
+    <field name="ObjectObjectName" type="String" readOnly="true" label="Object Name" length="20" />
+    <field name="ObjectObjectTypeCode" type="String" readOnly="true" label="Object Type Code" length="20" />
+    <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" showInSummary="true" />
+    <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" showInSummary="true" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="People Objects">
+      <headerText>$DefaultGridViewDescription</headerText>
+      <dataFields>
+        <dataField fieldName="PeopleID" aliasFieldName="PeopleName" />
+        <dataField fieldName="ObjectID" aliasFieldName="ObjectObjectName" />
+        <dataField fieldName="DateCreated" columns="10" />
+        <dataField fieldName="DateModified" columns="10" />
+        <dataField fieldName="ObjectObjectTypeCode" columns="20" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review People Objects">
+      <headerText>$DefaultEditViewDescription</headerText>
+      <categories>
+        <category id="c1" headerText="People Objects" newColumn="true">
+          <description><![CDATA[$DefaultEditDescription]]></description>
+          <dataFields>
+            <dataField fieldName="PeopleID" aliasFieldName="PeopleName" />
+            <dataField fieldName="ObjectID" aliasFieldName="ObjectObjectName" />
+            <dataField fieldName="DateCreated" columns="10" />
+            <dataField fieldName="DateModified" columns="10" />
+          </dataFields>
+        </category>
+        <category id="c2" headerText="Reference Information">
+          <description><![CDATA[$DefaultReferenceDescription]]></description>
+          <dataFields>
+            <dataField fieldName="ObjectObjectTypeCode" columns="20" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+    <view id="createForm1" type="Form" commandId="command1" label="New People Objects">
+      <headerText>$DefaultCreateViewDescription</headerText>
+      <categories>
+        <category id="c1" headerText="New People Objects" newColumn="true">
+          <description><![CDATA[$DefaultNewDescription]]></description>
+          <dataFields>
+            <dataField fieldName="PeopleID" aliasFieldName="PeopleName" />
+            <dataField fieldName="ObjectID" aliasFieldName="ObjectObjectName" />
+            <dataField fieldName="DateCreated" columns="10" />
+            <dataField fieldName="DateModified" columns="10" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+      <action id="a2" commandName="Edit" />
+      <action id="a3" commandName="Delete" />
+      <action id="a6" />
+      <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+      <action id="a8" commandName="New" commandArgument="grid1" />
+      <action id="a9" />
+      <action id="a10" commandName="BatchEdit" />
+      <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a1" commandName="Edit" />
+      <action id="a2" commandName="Delete" />
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+      <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a7" whenLastCommandName="New" commandName="Insert" />
+      <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+      <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+      <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+      <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+    </actionGroup>
+    <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+      <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+    </actionGroup>
+    <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+      <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+      <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a6" commandName="Import" commandArgument="createForm1" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+      <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+</dataController>

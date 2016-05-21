@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="CB_PassFailCriteria" conflictDetection="overwriteChanges" label="CB Pass Fail Criteria" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"CB_PassFailCriteria"."TestExpressionID" "TestExpressionID"
+	,"TestExpression"."JoinCriteria" "TestExpressionJoinCriteria"
+	,"TestExpressionLeftDataElement"."DataElementName" "TestExpressionLeftDataElementDataElementName"
+	,"TestExpressionLeftDataElementEvent"."Name" "TestExpressionLeftDataElementEventName"
+	,"TestExpressionRightDataElement"."DataElementName" "TestExpressionRightDataElementDataElementName"
+	,"TestExpressionRightDataElementEvent"."Name" "TestExpressionRightDataElementEventName"
+	,"TestExpressionOperator"."Code" "TestExpressionOperatorCode"
+	,"TestExpressionTemplate"."TemplateName" "TestExpressionTemplateTemplateName"
+	,"TestExpressionTest"."TestName" "TestExpressionTestTestName"
+	,"TestExpressionAtrributeEvent"."AttributeID" "TestExpressionAtrributeEventAttributeID"
+	,"TestExpressionLeftEvent"."Name" "TestExpressionLeftEventName"
+	,"TestExpressionLeftEventEventType"."EventType" "TestExpressionLeftEventEventTypeEventType"
+	,"TestExpressionLeftEventLogSource"."Code" "TestExpressionLeftEventLogSourceCode"
+	,"TestExpressionLeftEventTimeSource"."Code" "TestExpressionLeftEventTimeSourceCode"
+	,"TestExpressionRightEvent"."Name" "TestExpressionRightEventName"
+	,"TestExpressionRightEventEventType"."EventType" "TestExpressionRightEventEventTypeEventType"
+	,"TestExpressionRightEventLogSource"."Code" "TestExpressionRightEventLogSourceCode"
+	,"TestExpressionRightEventTimeSource"."Code" "TestExpressionRightEventTimeSourceCode"
+	,"CB_PassFailCriteria"."TestCriteriaID" "TestCriteriaID"
+	,"TestCriteria"."Code" "TestCriteriaCode"
+	,"CB_PassFailCriteria"."IsPass" "IsPass"
+	,"CB_PassFailCriteria"."DateCreated" "DateCreated"
+	,"CB_PassFailCriteria"."DateModified" "DateModified"
+from "dbo"."CB_PassFailCriteria" "CB_PassFailCriteria"
+	left join "dbo"."CB_TestExpressions" "TestExpression" on "CB_PassFailCriteria"."TestExpressionID" = "TestExpression"."TestExpressionID"
+	left join "dbo"."CB_DataElement" "TestExpressionLeftDataElement" on "TestExpression"."LeftDataElementID" = "TestExpressionLeftDataElement"."DataElementID"
+	left join "dbo"."DIM_Events" "TestExpressionLeftDataElementEvent" on "TestExpressionLeftDataElement"."EventID" = "TestExpressionLeftDataElementEvent"."EventID"
+	left join "dbo"."CB_DataElement" "TestExpressionRightDataElement" on "TestExpression"."RightDataElementID" = "TestExpressionRightDataElement"."DataElementID"
+	left join "dbo"."DIM_Events" "TestExpressionRightDataElementEvent" on "TestExpressionRightDataElement"."EventID" = "TestExpressionRightDataElementEvent"."EventID"
+	left join "dbo"."CB_ExpressionOperator" "TestExpressionOperator" on "TestExpression"."OperatorID" = "TestExpressionOperator"."OperatorID"
+	left join "dbo"."CB_QueryTemplate" "TestExpressionTemplate" on "TestExpression"."TemplateID" = "TestExpressionTemplate"."TemplateID"
+	left join "dbo"."CB_Tests" "TestExpressionTest" on "TestExpression"."TestID" = "TestExpressionTest"."TestID"
+	left join "dbo"."Dim_EventAttribute" "TestExpressionAtrributeEvent" on "TestExpression"."AtrributeEventID" = "TestExpressionAtrributeEvent"."EventID"
+	left join "dbo"."DIM_Events" "TestExpressionLeftEvent" on "TestExpression"."LeftEventID" = "TestExpressionLeftEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "TestExpressionLeftEventEventType" on "TestExpressionLeftEvent"."EventTypeID" = "TestExpressionLeftEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "TestExpressionLeftEventLogSource" on "TestExpressionLeftEvent"."LogSourceID" = "TestExpressionLeftEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "TestExpressionLeftEventTimeSource" on "TestExpressionLeftEvent"."TimeSourceID" = "TestExpressionLeftEventTimeSource"."TimeSourceID"
+	left join "dbo"."DIM_Events" "TestExpressionRightEvent" on "TestExpression"."RightEventID" = "TestExpressionRightEvent"."EventID"
+	left join "dbo"."LU_EventTypes" "TestExpressionRightEventEventType" on "TestExpressionRightEvent"."EventTypeID" = "TestExpressionRightEventEventType"."EventTypeID"
+	left join "dbo"."LU_LogSource" "TestExpressionRightEventLogSource" on "TestExpressionRightEvent"."LogSourceID" = "TestExpressionRightEventLogSource"."LogSourceID"
+	left join "dbo"."LU_TimeSource" "TestExpressionRightEventTimeSource" on "TestExpressionRightEvent"."TimeSourceID" = "TestExpressionRightEventTimeSource"."TimeSourceID"
+	left join "dbo"."CB_TestCriteria" "TestCriteria" on "CB_PassFailCriteria"."TestCriteriaID" = "TestCriteria"."TestCriteriaID"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="TestExpressionID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Test Expression#" showInSummary="true">
+      <items style="Lookup" dataController="CB_TestExpressions" newDataView="createForm1" />
+    </field>
+    <field name="TestExpressionJoinCriteria" type="String" readOnly="true" label="Test Expression Join Criteria" length="20" />
+    <field name="TestExpressionLeftDataElementDataElementName" type="String" readOnly="true" label="Test Expression Left Data Element Name" length="20" />
+    <field name="TestExpressionLeftDataElementEventName" type="String" readOnly="true" label="Test Expression Left Data Element Event Name" length="20" />
+    <field name="TestExpressionRightDataElementDataElementName" type="String" readOnly="true" label="Test Expression Right Data Element Name" length="20" />
+    <field name="TestExpressionRightDataElementEventName" type="String" readOnly="true" label="Test Expression Right Data Element Event Name" length="20" />
+    <field name="TestExpressionOperatorCode" type="String" readOnly="true" label="Test Expression Operator Code" length="20" />
+    <field name="TestExpressionTemplateTemplateName" type="String" readOnly="true" label="Test Expression Template Name" length="20" />
+    <field name="TestExpressionTestTestName" type="String" readOnly="true" label="Test Expression Test Name" length="20" />
+    <field name="TestExpressionAtrributeEventAttributeID" type="String" readOnly="true" label="Test Expression Atrribute Event Attribute#" length="20" />
+    <field name="TestExpressionLeftEventName" type="String" readOnly="true" label="Test Expression Left Event Name" length="20" />
+    <field name="TestExpressionLeftEventEventTypeEventType" type="String" readOnly="true" label="Test Expression Left Event Type" length="20" />
+    <field name="TestExpressionLeftEventLogSourceCode" type="String" readOnly="true" label="Test Expression Left Event Log Source Code" length="20" />
+    <field name="TestExpressionLeftEventTimeSourceCode" type="String" readOnly="true" label="Test Expression Left Event Time Source Code" length="20" />
+    <field name="TestExpressionRightEventName" type="String" readOnly="true" label="Test Expression Right Event Name" length="20" />
+    <field name="TestExpressionRightEventEventTypeEventType" type="String" readOnly="true" label="Test Expression Right Event Type" length="20" />
+    <field name="TestExpressionRightEventLogSourceCode" type="String" readOnly="true" label="Test Expression Right Event Log Source Code" length="20" />
+    <field name="TestExpressionRightEventTimeSourceCode" type="String" readOnly="true" label="Test Expression Right Event Time Source Code" length="20" />
+    <field name="TestCriteriaID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Test Criteria#" showInSummary="true">
+      <items style="Lookup" dataController="CB_TestCriteria" newDataView="createForm1" />
+    </field>
+    <field name="TestCriteriaCode" type="String" readOnly="true" label="Test Criteria Code" length="20" />
+    <field name="IsPass" type="Boolean" label="Is Pass" showInSummary="true" />
+    <field name="DateCreated" type="DateTime" allowNulls="false" default="(getdate())" label="Date Created" showInSummary="true" />
+    <field name="DateModified" type="DateTime" allowNulls="false" default="(getdate())" label="Date Modified" showInSummary="true" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="CB Pass Fail Criteria">
+      <headerText>$DefaultGridViewDescription</headerText>
+      <dataFields>
+        <dataField fieldName="TestExpressionID" aliasFieldName="TestExpressionJoinCriteria" />
+        <dataField fieldName="TestCriteriaID" aliasFieldName="TestCriteriaCode" />
+        <dataField fieldName="IsPass" />
+        <dataField fieldName="DateCreated" columns="10" />
+        <dataField fieldName="DateModified" columns="10" />
+        <dataField fieldName="TestExpressionLeftDataElementDataElementName" columns="20" />
+        <dataField fieldName="TestExpressionLeftDataElementEventName" columns="20" />
+        <dataField fieldName="TestExpressionRightDataElementDataElementName" columns="20" />
+        <dataField fieldName="TestExpressionRightDataElementEventName" columns="20" />
+        <dataField fieldName="TestExpressionOperatorCode" columns="20" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review CB Pass Fail Criteria">
+      <headerText>$DefaultEditViewDescription</headerText>
+      <categories>
+        <category id="c1" headerText="CB Pass Fail Criteria" newColumn="true">
+          <description><![CDATA[$DefaultEditDescription]]></description>
+          <dataFields>
+            <dataField fieldName="TestExpressionID" aliasFieldName="TestExpressionJoinCriteria" />
+            <dataField fieldName="TestCriteriaID" aliasFieldName="TestCriteriaCode" />
+            <dataField fieldName="IsPass" />
+            <dataField fieldName="DateCreated" columns="10" />
+            <dataField fieldName="DateModified" columns="10" />
+          </dataFields>
+        </category>
+        <category id="c2" headerText="Reference Information">
+          <description><![CDATA[$DefaultReferenceDescription]]></description>
+          <dataFields>
+            <dataField fieldName="TestExpressionLeftDataElementDataElementName" columns="20" />
+            <dataField fieldName="TestExpressionLeftDataElementEventName" columns="20" />
+            <dataField fieldName="TestExpressionRightDataElementDataElementName" columns="20" />
+            <dataField fieldName="TestExpressionRightDataElementEventName" columns="20" />
+            <dataField fieldName="TestExpressionOperatorCode" columns="20" />
+            <dataField fieldName="TestExpressionTemplateTemplateName" columns="20" />
+            <dataField fieldName="TestExpressionTestTestName" columns="20" />
+            <dataField fieldName="TestExpressionAtrributeEventAttributeID" columns="20" />
+            <dataField fieldName="TestExpressionLeftEventName" columns="20" />
+            <dataField fieldName="TestExpressionLeftEventEventTypeEventType" columns="20" />
+            <dataField fieldName="TestExpressionLeftEventLogSourceCode" columns="20" />
+            <dataField fieldName="TestExpressionLeftEventTimeSourceCode" columns="20" />
+            <dataField fieldName="TestExpressionRightEventName" columns="20" />
+            <dataField fieldName="TestExpressionRightEventEventTypeEventType" columns="20" />
+            <dataField fieldName="TestExpressionRightEventLogSourceCode" columns="20" />
+            <dataField fieldName="TestExpressionRightEventTimeSourceCode" columns="20" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+    <view id="createForm1" type="Form" commandId="command1" label="New CB Pass Fail Criteria">
+      <headerText>$DefaultCreateViewDescription</headerText>
+      <categories>
+        <category id="c1" headerText="New CB Pass Fail Criteria" newColumn="true">
+          <description><![CDATA[$DefaultNewDescription]]></description>
+          <dataFields>
+            <dataField fieldName="TestExpressionID" aliasFieldName="TestExpressionJoinCriteria" />
+            <dataField fieldName="TestCriteriaID" aliasFieldName="TestCriteriaCode" />
+            <dataField fieldName="IsPass" />
+            <dataField fieldName="DateCreated" columns="10" />
+            <dataField fieldName="DateModified" columns="10" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+      <action id="a2" commandName="Edit" />
+      <action id="a3" commandName="Delete" />
+      <action id="a6" />
+      <action id="a7" commandName="Duplicate" commandArgument="createForm1" />
+      <action id="a8" commandName="New" commandArgument="grid1" />
+      <action id="a9" />
+      <action id="a10" commandName="BatchEdit" />
+      <action id="a11" commandName="BatchEdit" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a1" commandName="Edit" />
+      <action id="a2" commandName="Delete" />
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+      <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a7" whenLastCommandName="New" commandName="Insert" />
+      <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+      <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+      <action id="a11" whenLastCommandName="BatchEdit" commandName="Update" />
+      <action id="a12" whenLastCommandName="BatchEdit" commandName="Cancel" />
+      <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+    </actionGroup>
+    <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+      <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+    </actionGroup>
+    <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+      <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+      <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a6" commandName="Import" commandArgument="createForm1" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a8" whenLastCommandName="BatchEdit" commandName="Update" />
+      <action id="a9" whenLastCommandName="BatchEdit" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+</dataController>

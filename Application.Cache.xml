@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<application snapshot="true" xmlns="urn:schemas-codeontime-com:data-aquarium-application" xmlns:m="urn:codeontime:data-map">
+  <pages>
+    <page name="Home" title="^HomeTitle^Start^HomeTitle^" description="^HomeDesc^Application home page^HomeDesc^" path="^HomePath^Home^HomePath^" style="HomePage" customStyle="Wide" index="1000">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewColumn" />
+      </containers>
+      <controls>
+        <control id="control1" name="TableOfContents" container="container1" />
+        <control id="control2" name="Welcome" container="container2" />
+      </controls>
+    </page>
+    <page name="DIM_People" title="DIM People" description="View DIM People" index="1010" path="DIM People" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewRow" style="padding-top:8px" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="DIM_People" view="grid1" showInSummary="true" container="container1" activator="None" text="" />
+        <dataView id="view2" controller="CB_TestPopulation" view="grid1" text="CB Test Population" filterSource="view1" container="container2" filterFields="PeopleID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+        <dataView id="view3" controller="Groups_People" view="grid1" text="Groups People" filterSource="view1" container="container2" filterFields="PeopleID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+        <dataView id="view4" controller="People_Objects" view="grid1" text="People Objects" filterSource="view1" container="container2" filterFields="PeopleID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows dim people management.</about>
+    </page>
+    <page name="CB_TestPopulation" title="CB Test Population" description="View CB Test Population" index="1020" path="DIM People | CB Test Population" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="CB_TestPopulation" view="grid1" showInSummary="true" container="container1" activator="None" text="" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows cb test population management.</about>
+    </page>
+    <page name="Groups_People" title="Groups People" description="View Groups People" index="1030" path="DIM People | Groups People" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="Groups_People" view="grid1" showInSummary="true" container="container1" activator="None" text="" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows groups people management.</about>
+    </page>
+    <page name="People_Objects" title="People Objects" description="View People Objects" index="1040" path="DIM People | People Objects" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="People_Objects" view="grid1" showInSummary="true" container="container1" activator="None" text="" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows people objects management.</about>
+    </page>
+    <page name="CB_TestExpressions" title="CB Test Expressions" description="View CB Test Expressions" index="1050" path="CB Test Expressions" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewRow" style="padding-top:8px" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="CB_TestExpressions" view="grid1" showInSummary="true" container="container1" activator="None" text="" />
+        <dataView id="view2" controller="CB_TestExpressions" view="grid1" text="CB Test Expressions" filterSource="view1" container="container2" filterFields="ParentTestExpressionID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+        <dataView id="view3" controller="CB_PassFailCriteria" view="grid1" text="CB Pass Fail Criteria" filterSource="view1" container="container2" filterFields="TestExpressionID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows cb test expressions management.</about>
+    </page>
+    <page name="CB_PassFailCriteria" title="CB Pass Fail Criteria" description="View CB Pass Fail Criteria" index="1060" path="CB Test Expressions | CB Pass Fail Criteria" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="CB_PassFailCriteria" view="grid1" showInSummary="true" container="container1" activator="None" text="" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows cb pass fail criteria management.</about>
+    </page>
+    <page name="CB_Tests" title="CB Tests" description="View CB Tests" index="1070" path="CB Tests" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewRow" style="padding-top:8px" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="CB_Tests" view="grid1" showInSummary="true" container="container1" activator="None" text="" />
+        <dataView id="view2" controller="CB_TestExpressions" view="grid1" text="CB Test Expressions" filterSource="view1" container="container2" filterFields="TestID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+        <dataView id="view3" controller="CB_TestPopulation" view="grid1" text="CB Test Population" filterSource="view1" container="container2" filterFields="TestID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows cb tests management.</about>
+    </page>
+    <page name="DIM_Events" title="DIM Events" description="View DIM Events" index="1080" path="DIM Events" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewRow" style="padding-top:8px" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="DIM_Events" view="grid1" showInSummary="true" container="container1" activator="None" text="" />
+        <dataView id="view2" controller="CB_TestExpressions" view="grid1" text="CB Test Expressions" filterSource="view1" container="container2" filterFields="LeftEventID,RightEventID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+        <dataView id="view3" controller="CB_DataElement" view="grid1" text="CB Data Element" filterSource="view1" container="container2" filterFields="EventID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows dim events management.</about>
+    </page>
+    <page name="CB_DataElement" title="CB Data Element" description="View CB Data Element" index="1090" path="DIM Events | CB Data Element" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewRow" style="padding-top:8px" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="CB_DataElement" view="grid1" showInSummary="true" container="container1" activator="None" text="" />
+        <dataView id="view2" controller="CB_TestExpressions" view="grid1" text="CB Test Expressions" filterSource="view1" container="container2" filterFields="LeftDataElementID,RightDataElementID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows cb data element management.</about>
+    </page>
+    <page name="LU_Groups" title="LU Groups" description="View LU Groups" index="1100" path="LU Groups" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewRow" style="padding-top:8px" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="LU_Groups" view="grid1" showInSummary="true" container="container1" activator="None" text="" />
+        <dataView id="view2" controller="CB_TestPopulation" view="grid1" text="CB Test Population" filterSource="view1" container="container2" filterFields="GroupID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+        <dataView id="view3" controller="Groups_People" view="grid1" text="Groups People" filterSource="view1" container="container2" filterFields="GroupID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows lu groups management.</about>
+    </page>
+    <page name="CB_ExpressionOperator" title="CB Expression Operator" description="View CB Expression Operator" index="1110" path="LU Groups | CB Expression Operator" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewRow" style="padding-top:8px" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="CB_ExpressionOperator" view="grid1" showInSummary="true" container="container1" activator="None" text="" />
+        <dataView id="view2" controller="CB_TestExpressions" view="grid1" text="CB Test Expressions" filterSource="view1" container="container2" filterFields="OperatorID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows cb expression operator management.</about>
+    </page>
+    <page name="CB_QueryTemplate" title="CB Query Template" description="View CB Query Template" index="1120" path="LU Groups | CB Query Template" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewRow" style="padding-top:8px" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="CB_QueryTemplate" view="grid1" showInSummary="true" container="container1" activator="None" text="" />
+        <dataView id="view2" controller="CB_TestExpressions" view="grid1" text="CB Test Expressions" filterSource="view1" container="container2" filterFields="TemplateID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows cb query template management.</about>
+    </page>
+    <page name="CB_TestCriteria" title="CB Test Criteria" description="View CB Test Criteria" index="1130" path="LU Groups | CB Test Criteria" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewRow" style="padding-top:8px" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="CB_TestCriteria" view="grid1" showInSummary="true" container="container1" activator="None" text="" />
+        <dataView id="view2" controller="CB_PassFailCriteria" view="grid1" text="CB Pass Fail Criteria" filterSource="view1" container="container2" filterFields="TestCriteriaID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows cb test criteria management.</about>
+    </page>
+    <page name="Dim_EventAttribute" title="Dim Event Attribute" description="View Dim Event Attribute" index="1140" path="LU Groups | Dim Event Attribute" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewRow" style="padding-top:8px" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="Dim_EventAttribute" view="grid1" showInSummary="true" container="container1" activator="None" text="" />
+        <dataView id="view2" controller="CB_TestExpressions" view="grid1" text="CB Test Expressions" filterSource="view1" container="container2" filterFields="AtrributeEventID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows dim event attribute management.</about>
+    </page>
+    <page name="DIM_Objects" title="DIM Objects" description="View DIM Objects" index="1150" path="DIM Objects">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewRow" style="padding-top:8px" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="DIM_Objects" view="grid1" showInSummary="true" container="container1" activator="None" text="" />
+        <dataView id="view2" controller="People_Objects" view="grid1" text="People Objects" filterSource="view1" container="container2" filterFields="ObjectID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows dim objects management.</about>
+    </page>
+    <page name="LU_EventTypes" title="LU Event Types" description="View LU Event Types" index="1160" path="LU Groups | LU Event Types" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewRow" style="padding-top:8px" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="LU_EventTypes" view="grid1" showInSummary="true" container="container1" activator="None" text="" />
+        <dataView id="view2" controller="DIM_Events" view="grid1" text="DIM Events" filterSource="view1" container="container2" filterFields="EventTypeID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows lu event types management.</about>
+    </page>
+    <page name="LU_LogSource" title="LU Log Source" description="View LU Log Source" index="1170" path="LU Groups | LU Log Source" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewRow" style="padding-top:8px" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="LU_LogSource" view="grid1" showInSummary="true" container="container1" activator="None" text="" />
+        <dataView id="view2" controller="DIM_Events" view="grid1" text="DIM Events" filterSource="view1" container="container2" filterFields="LogSourceID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows lu log source management.</about>
+    </page>
+    <page name="LU_ObjectType" title="LU Object Type" description="View LU Object Type" index="1180" path="LU Groups | LU Object Type" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewRow" style="padding-top:8px" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="LU_ObjectType" view="grid1" showInSummary="true" container="container1" activator="None" text="" />
+        <dataView id="view2" controller="DIM_Objects" view="grid1" text="DIM Objects" filterSource="view1" container="container2" filterFields="ObjectTypeID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows lu object type management.</about>
+    </page>
+    <page name="LU_TimeSource" title="LU Time Source" description="View LU Time Source" index="1190" path="LU Groups | LU Time Source" style="Generic">
+      <containers>
+        <container id="container1" flow="NewRow" />
+        <container id="container2" flow="NewRow" style="padding-top:8px" />
+      </containers>
+      <dataViews>
+        <dataView id="view1" controller="LU_TimeSource" view="grid1" showInSummary="true" container="container1" activator="None" text="" />
+        <dataView id="view2" controller="DIM_Events" view="grid1" text="DIM Events" filterSource="view1" container="container2" filterFields="TimeSourceID" activator="Tab" autoHide="Container" pageSize="5" showModalForms="true" />
+      </dataViews>
+      <controls />
+      <about>This page allows lu time source management.</about>
+    </page>
+  </pages>
+  <userControls>
+    <userControl name="TableOfContents" prefix="uc" generate="Always">
+      <body>
+            
+&lt;div class="ParaInfo"&gt;
+        ^TocInstruction^Please select a page link in the table of contents below.^TocInstruction^&lt;/div&gt;
+&lt;div class="ParaHeader"&gt;
+    ^TocHeader^Site Map^TocHeader^
+&lt;/div&gt;
+&lt;asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" ShowStartingNode="false" /&gt;
+&lt;asp:TreeView ID="TreeView1" runat="server" DataSourceID="SiteMapDataSource1" CssClass="TreeView"&gt;
+&lt;/asp:TreeView&gt;
+          </body>
+    </userControl>
+    <userControl name="RichEditor" prefix="uc" generate="FirstTimeOnly">
+      <body>
+            
+&lt;asp:TextBox ID="TextBox1" runat="server" Columns="50" Rows="10" Height="241px"
+    Width="450px"&gt;&lt;/asp:TextBox&gt;
+&lt;act:HtmlEditorExtender ID="Editor1" runat="server" TargetControlID="TextBox1"&gt;
+&lt;/act:HtmlEditorExtender&gt;
+          </body>
+    </userControl>
+    <userControl name="Welcome" prefix="uc" generate="Always">
+      <body>
+                
+&lt;div style="padding-left:8px"&gt;&lt;div class="ParaInfo"&gt;
+        Select a page in a table of content.&lt;/div&gt;
+&lt;div class="ParaHeader"&gt;
+    Instructions
+&lt;/div&gt;
+&lt;div class="ParaText"&gt;
+    Membership option has not been selected for this application. 
+    The entire site content can be accessed without any restrictions.
+&lt;/div&gt;
+
+              </body>
+    </userControl>
+  </userControls>
+</application>
