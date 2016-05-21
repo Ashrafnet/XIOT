@@ -4,9 +4,9 @@ by Localizer.Replace(token, text) method calls in the source code files of
 the project. The localization process will also use this file if missing
 localization tokens are found in a static resource.
 
-Replace the text between localization brackets (tokens) as needed.
+Replace the text between localization brackets (tokens) as needed..
 *******************************************************************************
-
+ 
 ^AnnotationActionHeaderText^Annotate^AnnotationActionHeaderText^
 
 ^AnnotationAttachmentDynamicFieldHeaderText^{0} attached <b>{1}</b> at {2}^AnnotationAttachmentDynamicFieldHeaderText^
